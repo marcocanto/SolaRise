@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">SolaRise</string>
+    <string name="welcome_to_solarise">Welcome to SolaRise</string>
+    <string name="what_is_your_name">What is your name?</string>
+    <string name="what_is_your_age">What is your age?</string>
+    <string name="early_bird_or_night_owl">Early Bird or Night Owl?</string>
+    <string name="what_is_your_height">What is your height? (Feet)</string>
+    <string name="what_is_your_weight">What is your weight? (lbs)</string>
+    <string name="submit">SUBMIT</string>
+</resources>

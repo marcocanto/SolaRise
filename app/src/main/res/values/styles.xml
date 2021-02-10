@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="solar_style">
+        <item name="android:layout_marginTop">@dimen/layout_margine</item>
+        <item name="android:fontFamily">@font/bubblegum_sans</item>
+        <item name="android:paddingTop">@dimen/small_padding</item>
+        <item name="android:textColor">@android:color/holo_orange_dark</item>
+    </style>
+</resources>
