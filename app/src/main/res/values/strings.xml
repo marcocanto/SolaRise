@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SolaRise</string>
+    <string name="submit" />
 </resources>
