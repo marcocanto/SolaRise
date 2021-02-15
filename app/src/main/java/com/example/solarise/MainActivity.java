@@ -25,20 +25,29 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Button btnRequest = findViewById(R.id.btnRequest);
-        Button btnLocate = findViewById(R.id.btnLocate);
+        setContentView(R.layout.activity_login);
+        Button btnSubmit = findViewById(R.id.submit);
 
-        // initialize the location client
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-
-        btnRequest.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                getLastLocation();
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setContentView(R.layout.activity_dashboard);
             }
         });
 
-        getLastLocation();
+//        Button btnRequest = findViewById(R.id.btnRequest);
+//        Button btnLocate = findViewById(R.id.btnLocate);
+//
+//        // initialize the location client
+//        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+//
+//        btnRequest.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                getLastLocation();
+//            }
+//        });
+//
+//        getLastLocation();
 
     }
 
