@@ -6,7 +6,6 @@ import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -37,29 +36,24 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        Button btnRequest = findViewById(R.id.btnRequest);
-        Button btnLocate = findViewById(R.id.btnLocate);
+        setContentView(R.layout.activity_dashboard);
 
         // set up the network client to send API requests
         client = new OpenWeatherClient();
         // initialize the location client
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
-        btnRequest.setOnClickListener(v -> requestPermission.launch(Manifest.permission.ACCESS_COARSE_LOCATION));
+        requestPermission.launch(Manifest.permission.ACCESS_COARSE_LOCATION);
 
-        btnLocate.setOnClickListener(v -> {
-            if (lastLocation == null) {
-                getCurrentLocation(fusedLocationClient);
-            }
-            else{
-                setWeather(client, lastLocation);
-            }
-            if (currentDaytime != null) {
-                btnLocate.setText(currentDaytime.getSunrise());
-            }
-        });
+        if (lastLocation == null) {
+            getCurrentLocation(fusedLocationClient);
+        }
+        else{
+            setWeather(client, lastLocation);
+        }
+//        if (currentDaytime != null) {
+//            .setText(currentDaytime.getSunrise());
+//        }
     }
 
     // returns pair of lat,lon

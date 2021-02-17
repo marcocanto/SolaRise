@@ -13,6 +13,13 @@
         android:textAlignment="center"
         android:textSize="30sp" />
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="281dp"
+        app:srcCompat="@drawable/sun_mask" />
+
+
     <EditText
         android:id="@+id/person_name"
         android:layout_width="match_parent"
