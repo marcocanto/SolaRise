@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">SolaRise</string>
     <string name="submit" />
+    <string name="request">Request</string>
+    <string name="locate">Locate</string>
+    <string name="sunset">Sunset\n6:00PM</string>
+    <string name="sunrise" />
+    <string name="sleep_query">How was your sleep?</string>
+    <string name="home_button">HOME</string>
+    <string name="settings_button">SETTINGS</string>
 </resources>

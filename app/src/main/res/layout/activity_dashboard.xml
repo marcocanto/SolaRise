@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".activities.MainActivity">
 
     <TextView
         android:id="@+id/sunrise"
@@ -33,14 +33,14 @@
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="16dp"
         android:fontFamily="sans-serif"
-        android:text="Sunset\n6:00PM"
+        android:text="@string/sunrise"
         android:textAlignment="center"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/sleep_question"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        tools:text="Sunset\n6:00PM" />
+        tools:text="@string/sunset" />
 
     <RatingBar
         android:id="@+id/rating_bar"
@@ -59,7 +59,7 @@
         android:layout_height="46dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        android:text="How was your sleep?"
+        android:text="@string/sleep_query"
         android:textAlignment="center"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/rating_bar"
@@ -74,7 +74,7 @@
         android:layout_height="46dp"
         android:layout_marginStart="84dp"
         android:layout_marginTop="16dp"
-        android:text="HOME"
+        android:text="@string/home_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rating_bar" />
 
@@ -84,7 +84,7 @@
         android:layout_height="46dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="80dp"
-        android:text="SETTINGS"
+        android:text="@string/settings_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rating_bar" />
 
