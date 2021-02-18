@@ -98,11 +98,11 @@ public class Daytime {
     }
 
     public String getSunrise() {
-        return sunrise;
+        return this.sunrise;
     }
 
     public String getSunset() {
-        return sunset;
+        return this.sunset;
     }
 
 }
