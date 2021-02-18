@@ -8,28 +8,25 @@
 
     <TextView
         android:id="@+id/tvSunrise"
-        android:layout_width="170dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
+        android:layout_width="181dp"
+        android:layout_height="26dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="12dp"
         android:fontFamily="sans-serif"
+        android:text="@string/sunrise"
         android:textAlignment="center"
         android:textSize="18sp"
-        android:text="@string/sunrise"
-        app:layout_constraintBottom_toTopOf="@+id/tvSleepQuestion"
-        app:layout_constraintEnd_toStartOf="@+id/sunset"
-        app:layout_constraintHorizontal_bias="1.0"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/tvSunset"
+        app:layout_constraintHorizontal_bias="0.869"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
         tools:text="Sunrise\n7:30AM" />
 
     <TextView
         android:id="@+id/tvSunset"
-        android:layout_width="170dp"
-        android:layout_height="50dp"
+        android:layout_width="163dp"
+        android:layout_height="26dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="16dp"
@@ -37,6 +34,7 @@
         android:text="@string/sunset"
         android:textAlignment="center"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/tvSleepQuestion"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -45,15 +43,15 @@
 
     <ImageView
         android:id="@+id/ivSun"
-        android:layout_width="266dp"
-        android:layout_height="282dp"
+        android:layout_width="334dp"
+        android:layout_height="313dp"
         android:layout_marginBottom="1dp"
         android:foregroundGravity="center_vertical|clip_horizontal"
         app:layout_constraintBottom_toTopOf="@+id/tvSleepQuestion"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.579"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sunset"
+        app:layout_constraintTop_toBottomOf="@+id/tvSunriseTime"
         app:srcCompat="@drawable/sunglasses" />
 
     <RatingBar
@@ -78,9 +76,10 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/rbSleepRating"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.95" />
+        app:layout_constraintVertical_bias="0.986" />
 
     <Button
         android:id="@+id/btnHome"
@@ -101,5 +100,27 @@
         android:text="@string/settings_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rbSleepRating" />
+
+    <TextView
+        android:id="@+id/tvSunriseTime"
+        android:layout_width="176dp"
+        android:layout_height="28dp"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toStartOf="@+id/tvSunset"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSunrise"
+        tools:text="7:30" />
+
+    <TextView
+        android:id="@+id/tvSunsetTime"
+        android:layout_width="158dp"
+        android:layout_height="27dp"
+        android:text="TextView"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.384"
+        app:layout_constraintStart_toEndOf="@+id/tvSunriseTime"
+        app:layout_constraintTop_toBottomOf="@+id/tvSunset"
+        tools:text="7:30" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

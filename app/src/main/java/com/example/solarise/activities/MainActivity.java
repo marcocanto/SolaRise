@@ -67,14 +67,14 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        TextView tvSunrise = findViewById(R.id.tvSunrise);
-        TextView tvSunset = findViewById(R.id.tvSunset);
+        TextView tvSunriseTime = findViewById(R.id.tvSunriseTime);
+        TextView tvSunsetTime = findViewById(R.id.tvSunsetTime);
 
         currentDaytime = new Daytime();
         currentDaytime.setListener(json -> {
             currentDaytime.setDaytimeFromJSON(json);
-            tvSunrise.setText(currentDaytime.getSunrise());
-            tvSunset.setText(currentDaytime.getSunset());
+            tvSunriseTime.setText(currentDaytime.getSunrise());
+            tvSunsetTime.setText(currentDaytime.getSunset());
         });
 
         requestPermission.launch(Manifest.permission.ACCESS_COARSE_LOCATION);
