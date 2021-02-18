@@ -3,26 +3,24 @@ package com.example.solarise.activities;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.os.Build;
 import android.os.Bundle;
+import android.os.Looper;
 import android.util.Log;
+import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.solarise.R;
 import com.example.solarise.models.Daytime;
 import com.example.solarise.network.OpenWeatherClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
-
-import org.json.JSONException;
-
-import okhttp3.Headers;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
     private OpenWeatherClient client;
     private static Daytime currentDaytime;
     private static Location lastLocation;
+
+    private LocationRequest locationRequest;
+    private LocationCallback locationCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,17 +44,39 @@ public class MainActivity extends AppCompatActivity {
         // initialize the location client
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
+        locationRequest = LocationRequest.create();
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setInterval(20 * 1000);
+
+        locationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                Log.i(TAG, "on location result");
+                if (locationResult == null) {
+                    return;
+                }
+                for (Location location: locationResult.getLocations()) {
+                    if (location != null) {
+                        setLocation(location);
+                        fusedLocationClient.removeLocationUpdates(locationCallback);
+                    }
+                }
+            }
+        };
+
+        TextView tvSunrise = findViewById(R.id.tvSunrise);
+        TextView tvSunset = findViewById(R.id.tvSunset);
+
+        currentDaytime = new Daytime();
+        currentDaytime.setListener(json -> {
+            currentDaytime.setDaytimeFromJSON(json);
+            tvSunrise.setText(currentDaytime.getSunrise());
+            tvSunset.setText(currentDaytime.getSunset());
+        });
+
         requestPermission.launch(Manifest.permission.ACCESS_COARSE_LOCATION);
 
-        if (lastLocation == null) {
-            getCurrentLocation(fusedLocationClient);
-        }
-        else{
-            setWeather(client, lastLocation);
-        }
-//        if (currentDaytime != null) {
-//            .setText(currentDaytime.getSunrise());
-//        }
+        getCurrentLocation(fusedLocationClient);
     }
 
     // returns pair of lat,lon
@@ -67,8 +90,10 @@ public class MainActivity extends AppCompatActivity {
                         // check if location was received
                         if (location != null) {
                             Log.i(TAG, "received location data: " + location.toString());
-                            lastLocation = location;
+                            setLocation(location);
+                            setWeather(client, lastLocation);
                         } else {
+                            fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper());
                             Log.i(TAG, "error receiving location");
                         }
                     });
@@ -76,26 +101,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setWeather(OpenWeatherClient client, Location location) {
-        client.getCurrentWeather(location.getLatitude(), location.getLongitude(), new JsonHttpResponseHandler() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public void onSuccess(int i, Headers headers, JSON json) {
-                if (json != null) {
-                    try {
-                        Log.i(TAG, "retrieved weather json: " + json.jsonObject.getJSONObject("sys").toString());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    currentDaytime = Daytime.fromJSON(json.jsonObject);
-                } else {
-                    Log.i(TAG, "received empty weather json");
-                }
-            }
-            @Override
-            public void onFailure(int i, Headers headers, String s, Throwable throwable) {
-                Log.e(TAG, "error getting weather data", throwable);
-            }
-        });
+        currentDaytime.loadDaytimeAsync(client, location);
+    }
+
+    public void setLocation(Location location) {
+        lastLocation = location;
     }
 
     private final ActivityResultLauncher<String> requestPermission = registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {

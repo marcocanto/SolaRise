@@ -18,7 +18,7 @@
         android:textAlignment="center"
         android:textSize="18sp"
         android:text="@string/sunrise"
-        app:layout_constraintBottom_toTopOf="@+id/sleep_question"
+        app:layout_constraintBottom_toTopOf="@+id/tvSleepQuestion"
         app:layout_constraintEnd_toStartOf="@+id/sunset"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,7 +27,7 @@
         tools:text="Sunrise\n7:30AM" />
 
     <TextView
-        android:id="@+id/sunset"
+        android:id="@+id/tvSunset"
         android:layout_width="170dp"
         android:layout_height="50dp"
         android:layout_marginTop="16dp"
@@ -37,25 +37,27 @@
         android:text="@string/sunset"
         android:textAlignment="center"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/sleep_question"
+        app:layout_constraintBottom_toTopOf="@+id/tvSleepQuestion"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         tools:text="@string/sunset" />
 
     <ImageView
-        android:id="@+id/sun_image"
-        android:layout_width="341dp"
-        android:layout_height="604dp"
-        android:layout_marginBottom="92dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/ivSun"
+        android:layout_width="266dp"
+        android:layout_height="282dp"
+        android:layout_marginBottom="1dp"
+        android:foregroundGravity="center_vertical|clip_horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/tvSleepQuestion"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.514"
+        app:layout_constraintHorizontal_bias="0.579"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sunset"
         app:srcCompat="@drawable/sunglasses" />
 
     <RatingBar
-        android:id="@+id/rating_bar"
+        android:id="@+id/rbSleepRating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -66,7 +68,7 @@
         app:layout_constraintVertical_bias="0.836" />
 
     <TextView
-        android:id="@+id/sleep_question"
+        android:id="@+id/tvSleepQuestion"
         android:layout_width="340dp"
         android:layout_height="46dp"
         android:layout_marginTop="16dp"
@@ -74,30 +76,30 @@
         android:text="@string/sleep_query"
         android:textAlignment="center"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/rating_bar"
+        app:layout_constraintBottom_toTopOf="@+id/rbSleepRating"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.95" />
 
     <Button
-        android:id="@+id/home_button"
+        android:id="@+id/btnHome"
         android:layout_width="111dp"
         android:layout_height="46dp"
         android:layout_marginStart="84dp"
         android:layout_marginTop="16dp"
         android:text="@string/home_button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rating_bar" />
+        app:layout_constraintTop_toBottomOf="@+id/rbSleepRating" />
 
     <Button
-        android:id="@+id/settings_button"
+        android:id="@+id/btnSettings"
         android:layout_width="111dp"
         android:layout_height="46dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="80dp"
         android:text="@string/settings_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rating_bar" />
+        app:layout_constraintTop_toBottomOf="@+id/rbSleepRating" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

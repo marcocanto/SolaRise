@@ -6,7 +6,7 @@ import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.RequestParams;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
-public class OpenWeatherClient {
+public class OpenWeatherClient extends  AsyncHttpClient {
     public static final String API_KEY = "202aea999dde10c1802c3e6c4590ab10";
     public static final String API_URL = "https://api.openweathermap.org/data/2.5/weather";
 
@@ -25,6 +25,4 @@ public class OpenWeatherClient {
         Log.i(TAG, "Sending current weather get request");
         client.get(API_URL, params, handler);
     }
-
-
 }
