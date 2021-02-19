@@ -60,10 +60,10 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.836" />
+        app:layout_constraintVertical_bias="0.835" />
 
     <TextView
         android:id="@+id/tvSleepQuestion"
@@ -85,19 +85,19 @@
         android:id="@+id/btnHome"
         android:layout_width="111dp"
         android:layout_height="46dp"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="28dp"
         android:text="@string/home_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rbSleepRating" />
 
     <Button
-        android:id="@+id/btnSettings"
+        android:id="@+id/btnLogout"
         android:layout_width="111dp"
         android:layout_height="46dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="80dp"
-        android:text="@string/settings_button"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/logout_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rbSleepRating" />
 
@@ -122,5 +122,16 @@
         app:layout_constraintStart_toEndOf="@+id/tvSunriseTime"
         app:layout_constraintTop_toBottomOf="@+id/tvSunset"
         tools:text="7:30" />
+
+    <Button
+        android:id="@+id/btnRatingSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/submit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnLogout"
+        app:layout_constraintStart_toEndOf="@+id/btnHome"
+        app:layout_constraintTop_toBottomOf="@+id/rbSleepRating"
+        app:layout_constraintVertical_bias="0.162" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
