@@ -1,57 +1,76 @@
 package com.example.solarise.activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.solarise.R;
 import com.example.solarise.models.User;
-import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private String TAG = "LoginActivity";
-    private FusedLocationProviderClient fusedLocationClient;
+    private EditText Username;
+    private EditText Password;
+    private Button Login, Register;
+    private ProgressDialog progress;
+    private FirebaseAuth firebaseAuth;
 
-    private EditText personName, personAge, personSleep, personHeight, personWeight;
+    private FirebaseDatabase firebaseDatabase; //Root Node
+    private DatabaseReference firebaseReference; //Reference to sub root levels
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        personName = (EditText) findViewById(R.id.person_name);
-        personAge = (EditText) findViewById(R.id.person_age);
-        personSleep = (EditText) findViewById(R.id.person_sleep);
-        personHeight = (EditText) findViewById(R.id.height);
-        personWeight = (EditText) findViewById(R.id.weight);
 
-        Button btnSubmit = findViewById(R.id.submit);
+        Username = findViewById(R.id.etUserEmail);
+        Password = findViewById(R.id.etUserPass);
+        Login = findViewById(R.id.btnLogin);
+        Register = findViewById(R.id.btnSignUp);
+        progress = new ProgressDialog(this);
 
-        btnSubmit.setOnClickListener(view -> {
-            String userName = personName.getText().toString();
-            int userAge = Integer.parseInt(personAge.getText().toString());
-            boolean userSleep = personSleep.getText().toString().equals("Early Bird");
-            int userHeight = Integer.parseInt(personHeight.getText().toString());
-            int userWeight = Integer.parseInt(personWeight.getText().toString());
-            User user1 = new User(userName, userAge, userSleep, userHeight, userWeight);
+        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser current_user = firebaseAuth.getCurrentUser();
 
-//            try {
-//                FileOutputStream fos = openFileOutput("test.dat", Context.MODE_PRIVATE);
-//
-//                // Wrapping our file stream
-//                ObjectOutputStream oos = new ObjectOutputStream(fos);
-//                oos.write(user1);
-//                oos.close();
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
+        if (current_user != null){
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
 
-            Intent i = new Intent(this, MainActivity.class);
-            startActivity(i);
-            finish();
+        Login.setOnClickListener((View v) -> {
+            authentication(Username.getText().toString(), Password.getText().toString());
+        });
+
+        Register.setOnClickListener((View v) -> {
+            startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+        });
+    }
+
+    private void authentication(String user, String pass){
+        progress.setMessage("Verifying Credentials");
+        firebaseAuth.signInWithEmailAndPassword(user, pass).addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                progress.dismiss();
+                User test = new User("Keenan", 21, true, 60, 125);
+                firebaseDatabase  = FirebaseDatabase.getInstance();
+                firebaseReference = firebaseDatabase.getReference("Users");
+                firebaseReference.child("Keenan").setValue(test);
+                Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            }
+            else{
+                Toast.makeText(LoginActivity.this, "Login Failed Incorrect Credentials", Toast.LENGTH_SHORT).show();
+            }
         });
 
     }

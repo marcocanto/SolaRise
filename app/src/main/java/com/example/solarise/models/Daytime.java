@@ -15,20 +15,23 @@ import org.json.JSONObject;
 import java.time.Instant;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 import okhttp3.Headers;
 
 import static java.time.LocalDateTime.ofInstant;
 
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class Daytime {
 
     String sunrise;
     String sunset;
+    public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:m a");
 
     private DaytimeListener listener;
 
     public interface DaytimeListener {
-        public void onDataLoaded(JSONObject json);
+        void onDataLoaded(JSONObject json);
     }
 
     public Daytime(){
@@ -37,8 +40,8 @@ public class Daytime {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public Daytime(Long sunrise, Long sunset) {
-        this.sunrise = getTime(sunrise).toString();
-        this.sunset = getTime(sunset).toString();
+        this.sunrise = getTime(sunrise);
+        this.sunset = getTime(sunset);
     }
 
     public void setListener(DaytimeListener listener) {
@@ -48,8 +51,8 @@ public class Daytime {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void setDaytimeFromJSON(JSONObject jsonObject) {
         try { JSONObject sys = jsonObject.getJSONObject("sys");
-            this.sunrise = getTime(Long.parseLong(sys.getString("sunrise"))).toString();
-            this.sunset = getTime(Long.parseLong(sys.getString("sunset"))).toString();
+            this.sunrise = getTime(Long.parseLong(sys.getString("sunrise")));
+            this.sunset = getTime(Long.parseLong(sys.getString("sunset")));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -59,8 +62,8 @@ public class Daytime {
     public static Daytime fromJSON(JSONObject jsonObject) {
         Daytime d = new Daytime();
         try { JSONObject sys = jsonObject.getJSONObject("sys");
-            d.sunrise = getTime(Long.parseLong(sys.getString("sunrise"))).toString();
-            d.sunset = getTime(Long.parseLong(sys.getString("sunset"))).toString();
+            d.sunrise = getTime(Long.parseLong(sys.getString("sunrise")));
+            d.sunset = getTime(Long.parseLong(sys.getString("sunset")));
         } catch (JSONException e) {
             e.printStackTrace();
             return null;
@@ -69,9 +72,10 @@ public class Daytime {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public static LocalTime getTime(Long timeInMillis) {
+    public static String getTime(Long timeInMillis) {
         Instant instant = Instant.ofEpochMilli(timeInMillis* 1000);
-        return ofInstant(instant, ZoneId.systemDefault()).toLocalTime();
+        LocalTime time = ofInstant(instant, ZoneId.systemDefault()).toLocalTime();
+        return time.format(formatter);
     }
 
     public void loadDaytimeAsync(OpenWeatherClient client, Location location) {

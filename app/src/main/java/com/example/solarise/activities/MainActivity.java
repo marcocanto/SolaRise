@@ -24,6 +24,7 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
@@ -45,11 +46,16 @@ public class MainActivity extends AppCompatActivity {
         // set up the network client to send API requests
         client = new OpenWeatherClient();
         // initialize the location client
+        Log.i(TAG, "getting location provider client");
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
+        Log.i(TAG, "requesting permissions");
+//        requestPermission.launch(Manifest.permission.ACCESS_COARSE_LOCATION);
 
         locationRequest = LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         locationRequest.setInterval(20 * 1000);
+
 
         locationCallback = new LocationCallback() {
             @Override
@@ -77,12 +83,14 @@ public class MainActivity extends AppCompatActivity {
             tvSunsetTime.setText(currentDaytime.getSunset());
         });
 
-        requestPermission.launch(Manifest.permission.ACCESS_COARSE_LOCATION);
-
+        Log.i(TAG, "calling getCurrentLocation");
         getCurrentLocation(fusedLocationClient);
+        tvSunriseTime.setText(currentDaytime.getSunrise());
+        tvSunsetTime.setText(currentDaytime.getSunset());
     }
 
     // returns pair of lat,lon
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void getCurrentLocation(FusedLocationProviderClient fusedLocationClient) {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             requestPermission.launch(Manifest.permission.ACCESS_COARSE_LOCATION);
@@ -103,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void setWeather(OpenWeatherClient client, Location location) {
         currentDaytime.loadDaytimeAsync(client, location);
     }
@@ -114,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
     private final ActivityResultLauncher<String> requestPermission = registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
         if (isGranted) {
             Log.i(TAG, "permission granted");
+            getCurrentLocation(fusedLocationClient);
         }
         else {
             Log.i(TAG, "permission denied");
