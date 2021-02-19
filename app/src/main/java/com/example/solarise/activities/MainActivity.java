@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 for (Location location: locationResult.getLocations()) {
                     if (location != null) {
-                        setLocation(location);
+                        getCurrentLocation(fusedLocationClient);
                         fusedLocationClient.removeLocationUpdates(locationCallback);
                     }
                 }
@@ -104,8 +104,8 @@ public class MainActivity extends AppCompatActivity {
                             setLocation(location);
                             setWeather(client, lastLocation);
                         } else {
-                            fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper());
                             Log.i(TAG, "error receiving location");
+                            fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper());
                         }
                     });
         }
