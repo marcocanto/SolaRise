@@ -21,13 +21,13 @@ public class UserInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info);
-        personName = findViewById(R.id.person_name);
-        personAge = findViewById(R.id.person_age);
-        personSleep = findViewById(R.id.person_sleep);
-        personHeight = findViewById(R.id.height);
-        personWeight = findViewById(R.id.weight);
+        personName = findViewById(R.id.etUserName);
+        personAge = findViewById(R.id.etUserAge);
+        personSleep = findViewById(R.id.etSleepType);
+        personHeight = findViewById(R.id.etUserHeight);
+        personWeight = findViewById(R.id.etUserWeight);
 
-        Button btnSubmit = findViewById(R.id.submit);
+        Button btnSubmit = findViewById(R.id.btnSubmit);
 
         btnSubmit.setOnClickListener(view -> {
             String userName = personName.getText().toString();
