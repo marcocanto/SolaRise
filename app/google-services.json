@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "196373523249",
+    "project_id": "solarise-login",
+    "storage_bucket": "solarise-login.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:196373523249:android:39a336f8af804424d2de10",
+        "android_client_info": {
+          "package_name": "com.example.solarise"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "196373523249-fkn29gnbevjg2g6la4l3k2trpan7vgib.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArZ78d_DizVrQLlsNim0r0S8WXc69wJLY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "196373523249-fkn29gnbevjg2g6la4l3k2trpan7vgib.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

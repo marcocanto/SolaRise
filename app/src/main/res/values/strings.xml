@@ -1,4 +1,18 @@
 <resources>
+    <string name="username">Username</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="sign_up">Sign_Up</string>
+    <string name="user_sign_up">Sign Up</string>
+    <string name="enter_username">"Enter Username "</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="register_now">Register Now!</string>
+    <string name="already_registered">Already Registered?  Login Here!</string>
+    <string name="enter_email">Enter Email Address</string>
+    <string name="enter_username_2">Enter Username</string>
+    <string name="enter_name">Enter Name</string>
+    <string name="email_address">Email Address</string>
+    <string name="enter_password2">Enter Password (6 Characters min.)</string>
     <string name="app_name">SolaRise</string>
     <string name="request">Request</string>
     <string name="locate">Locate</string>
