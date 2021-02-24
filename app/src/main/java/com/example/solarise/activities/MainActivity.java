@@ -8,7 +8,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -56,39 +55,34 @@ public class MainActivity extends AppCompatActivity {
         ratingBar = (RatingBar) findViewById(R.id.rbSleepRating);
         ratingButton = (Button) findViewById(R.id.btnRatingSubmit);
 
-        ratingButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int noofstars = ratingBar.getNumStars();
-                float getrating = ratingBar.getRating();
-                Toast.makeText(getApplicationContext(), "Rating: " + getrating + "/" + noofstars, Toast.LENGTH_LONG).show();
-            }
+        TextView tvSunriseTime = findViewById(R.id.tvSunriseTime);
+        TextView tvSunsetTime = findViewById(R.id.tvSunsetTime);
+
+        ratingButton.setOnClickListener(view -> {
+            int numStars = ratingBar.getNumStars();
+            float rating = ratingBar.getRating();
+            Toast.makeText(this, "Rating: " + rating + "/" + numStars, Toast.LENGTH_SHORT).show();
         });
 
         logout = (Button)findViewById(R.id.btnLogout);
 
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                finish();
-            }
+        logout.setOnClickListener(v -> {
+            FirebaseAuth.getInstance().signOut();
+            Toast.makeText(this, "Logging Out...", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            finish();
         });
 
         // set up the network client to send API requests
         client = new OpenWeatherClient();
         // initialize the location client
-        Log.i(TAG, "getting location provider client");
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
-        Log.i(TAG, "requesting permissions");
 //        requestPermission.launch(Manifest.permission.ACCESS_COARSE_LOCATION);
 
         locationRequest = LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         locationRequest.setInterval(20 * 1000);
-
 
         locationCallback = new LocationCallback() {
             @Override
@@ -106,9 +100,6 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        TextView tvSunriseTime = findViewById(R.id.tvSunriseTime);
-        TextView tvSunsetTime = findViewById(R.id.tvSunsetTime);
-
         currentDaytime = new Daytime();
         currentDaytime.setListener(json -> {
             currentDaytime.setDaytimeFromJSON(json);
@@ -116,7 +107,6 @@ public class MainActivity extends AppCompatActivity {
             tvSunsetTime.setText(currentDaytime.getSunset());
         });
 
-        Log.i(TAG, "calling getCurrentLocation");
         getCurrentLocation(fusedLocationClient);
         tvSunriseTime.setText(currentDaytime.getSunrise());
         tvSunsetTime.setText(currentDaytime.getSunset());

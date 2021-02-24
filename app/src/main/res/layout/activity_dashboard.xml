@@ -115,7 +115,7 @@
         android:id="@+id/tvSunsetTime"
         android:layout_width="158dp"
         android:layout_height="27dp"
-        android:text="TextView"
+        android:text="@string/sunsetTime"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.384"
