@@ -1,5 +1,8 @@
 package com.example.solarise.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class User{
 
     private String name;
@@ -7,16 +10,20 @@ public class User{
     private boolean earlyBird;
     private int height;
     private int weight;
+    private int averageCaffeine;
+    private List<Day> days = new ArrayList<Day>();
 
     public User() {}
 
-    public User(String name, int age, boolean earlyBird, int height, int weight) {
+    public User(String name, int age, boolean earlyBird, int height, int weight, int averageCaffeine) {
 
         this.name = name;
         this.age = age;
         this.earlyBird = earlyBird;
         this.height = height;
         this.weight = weight;
+        this.averageCaffeine = averageCaffeine;
+
     }
 
     public void setUserName(String name) {this.name = name; }
@@ -28,6 +35,8 @@ public class User{
     public void setHeight(int height) {this.height = height; }
 
     public void setWeight(int weight) {this.weight = weight; }
+
+    public void setAverageCaffeine(int averageCaffeine) {this.averageCaffeine = averageCaffeine;}
 
     public String getUserName() {
         return this.name;
@@ -48,4 +57,6 @@ public class User{
     public int getWeight() {
         return this.weight;
     }
+
+    public int getAverageCaffeine() { return this.averageCaffeine; }
 }

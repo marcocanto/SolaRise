@@ -1,22 +1,24 @@
 package com.example.solarise.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Day {
 
     String sleep_time;
     String wakeup_time;
     int rating;
-    int caffeine_intake;
+    List<Coffee> caffeine_intake = new ArrayList<Coffee>();
 
     public Day() {}
 
-    public Day(String sleep_time, String wakeup_time, int rating, int caffeine_intake) {
+    public Day(String sleep_time, String wakeup_time, int rating) {
         this.sleep_time = sleep_time;
         this.wakeup_time = wakeup_time;
         this.rating = rating;
-        this.caffeine_intake = caffeine_intake;
     }
 
-    public int getCaffeine_intake() {
+    public List<Coffee> getCaffeine_intake() {
         return caffeine_intake;
     }
 
@@ -32,8 +34,13 @@ public class Day {
         return wakeup_time;
     }
 
-    public void setCaffeine_intake(int caffeine_intake) {
+    public void setCaffeine_intake(List<Coffee> caffeine_intake) {
         this.caffeine_intake = caffeine_intake;
+    }
+
+    public void addCoffee(String time, int numMg) {
+        Coffee c = new Coffee(time, numMg);
+        this.caffeine_intake.add(c);
     }
 
     public void setRating(int rating) {
