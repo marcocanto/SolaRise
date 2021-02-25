@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
 
     <TextView
         android:id="@+id/tvIntro"
@@ -16,62 +19,103 @@
     <ImageView
         android:id="@+id/ivSunMask"
         android:layout_width="match_parent"
-        android:layout_height="281dp"
+        android:layout_height="251dp"
         app:srcCompat="@drawable/sun_mask" />
 
 
-    <EditText
-        android:id="@+id/etUserName"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:autofillHints=""
-        android:ems="10"
-        android:fontFamily="sans-serif"
-        android:hint="Name"
-        android:inputType="textPersonName"
-        android:textAlignment="center" />
+        android:layout_height="match_parent"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp">
 
-    <EditText
-        android:id="@+id/etUserAge"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Age"
-        android:inputType="textPersonName"
-        android:textAlignment="center" />
+        <EditText
+            android:id="@+id/etUserName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="15dp"
+            android:autofillHints=""
+            android:ems="10"
+            android:fontFamily="sans-serif"
+            android:hint="Name"
+            android:inputType="textPersonName"
+            android:textAlignment="center" />
 
-    <EditText
-        android:id="@+id/etSleepType"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Early Bird/Night Owl"
-        android:inputType="textPersonName"
-        android:textAlignment="center" />
+        <EditText
+            android:id="@+id/etUserAge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etUserName"
+            android:layout_marginTop="1dp"
+            android:ems="10"
+            android:hint="Age"
+            android:inputType="textPersonName"
+            android:textAlignment="center" />
 
-    <EditText
-        android:id="@+id/etUserHeight"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Height (inches)"
-        android:inputType="textPersonName"
-        android:textAlignment="center" />
+        <NumberPicker
+            android:id="@+id/npAverageCaffeine"
+            android:layout_width="101dp"
+            android:layout_height="54dp"
+            android:layout_above="@+id/toggleGroup"
+            android:layout_below="@+id/etUserAge"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="10dp" />
 
-    <EditText
-        android:id="@+id/etUserWeight"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Weight (lbs)"
-        android:inputType="textPersonName"
-        android:textAlignment="center" />
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/toggleGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btnSubmit"
+            android:layout_marginBottom="10dp"
+            app:singleSelection="true">
 
-    <Button
-        android:id="@+id/btnSubmit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/submit"
-        app:backgroundTint="@android:color/holo_orange_light" />
+            <Button
+                android:id="@+id/btnNightOwl"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/night_owl" />
+
+            <Button
+                android:id="@+id/btnEarlyBird"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/early_bird" />
+
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+
+
+        <Button
+            android:id="@+id/btnSubmit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="7dp"
+            android:text="@string/submit" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="227dp"
+            android:layout_height="54dp"
+            android:layout_above="@+id/toggleGroup"
+            android:layout_below="@+id/etUserAge"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="10dp"
+            android:layout_toStartOf="@+id/npAverageCaffeine"
+            android:gravity="center"
+            android:text="Average Coffee Intake"
+            android:textColor="@android:color/primary_text_light"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
 
 </LinearLayout>

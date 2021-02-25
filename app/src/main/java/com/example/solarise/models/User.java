@@ -13,7 +13,7 @@ public class User{
     private int averageCaffeine;
     private List<Day> days = new ArrayList<Day>();
 
-    public User() {}
+    public User(String userName, int userAge, boolean userSleep, int userHeight, int userWeight) {}
 
     public User(String name, int age, boolean earlyBird, int height, int weight, int averageCaffeine) {
 

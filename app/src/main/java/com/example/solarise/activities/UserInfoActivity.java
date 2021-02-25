@@ -4,12 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.solarise.R;
 import com.example.solarise.models.User;
+import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -24,46 +26,46 @@ public class UserInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_info);
         personName = findViewById(R.id.etUserName);
         personAge = findViewById(R.id.etUserAge);
-        personSleep = findViewById(R.id.etSleepType);
-        personHeight = findViewById(R.id.etUserHeight);
-        personWeight = findViewById(R.id.etUserWeight);
+        Button btnEarlyBird = findViewById(R.id.btnEarlyBird);
+        Button btnNightOwl = findViewById(R.id.btnNightOwl);
+        MaterialButtonToggleGroup toggleGroup = findViewById(R.id.toggleGroup);
+        NumberPicker averageCoffee = findViewById(R.id.npAverageCaffeine);
+        averageCoffee.setMinValue(0);
+        averageCoffee.setMaxValue(10);
+        averageCoffee.setWrapSelectorWheel(true);
+
 
         Button btnSubmit = findViewById(R.id.btnSubmit);
 
         btnSubmit.setOnClickListener(view -> {
             String userName = personName.getText().toString();
-            int userAge = Integer.parseInt(personAge.getText().toString());
-            boolean userSleep = personSleep.getText().toString().equals("Early Bird");
-            int userHeight = Integer.parseInt(personHeight.getText().toString());
-            int userWeight = Integer.parseInt(personWeight.getText().toString());
-            User user1 = new User(userName, userAge, userSleep, userHeight, userWeight);
-            if (forms_completed(userName, userAge, userSleep, userHeight, userWeight)){
-                firebaseDatabase  = FirebaseDatabase.getInstance();
+            String userAge = personAge.getText().toString();
+            boolean userSleep;
+            int userHeight = 1;
+            int userWeight = 1;
+            if (forms_completed(toggleGroup, userName, userAge)) {
+                userSleep = toggleGroup.getCheckedButtonId() == R.id.btnEarlyBird;
+                User user1 = new User(userName, Integer.parseInt(userAge), userSleep, userHeight, userWeight);
+                firebaseDatabase = FirebaseDatabase.getInstance();
                 firebaseReference = firebaseDatabase.getReference("Users");
                 firebaseReference.child(userName).setValue(user1);
 
                 startActivity(new Intent(this, MainActivity.class));
                 finish();
+            } else {
+                Toast.makeText(UserInfoActivity.this, "Please complete all forms", Toast.LENGTH_SHORT).show();
             }
-            else{
-                Toast.makeText(UserInfoActivity.this,"Please complete all forms", Toast.LENGTH_SHORT).show();
-            }
-//                firebaseDatabase  = FirebaseDatabase.getInstance();
-//                firebaseReference = firebaseDatabase.getReference("Users");
-//                firebaseReference.child(userName).setValue(user1);
-//                setContentView(R.layout.activity_dashboard);
         });
     }
 
-    private boolean forms_completed(String name, int age, boolean userSleep, int Height, int Weight){
-        if(name.isEmpty()){
+    public boolean forms_completed(MaterialButtonToggleGroup toggleGroup, String username, String age) {
+        if (toggleGroup.getCheckedButtonId() == -1) {
+            Toast.makeText(UserInfoActivity.this, "Select a sleep preference", Toast.LENGTH_SHORT).show();
             return false;
-        }
-        if (age == 0 || Height == 0 || Weight == 0){
-            return false;
+        } else {
+            Toast.makeText(UserInfoActivity.this, "selected button" + toggleGroup.getCheckedButtonId(), Toast.LENGTH_SHORT).show();
         }
         return true;
     }
-
 
 }
