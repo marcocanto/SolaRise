@@ -59,4 +59,16 @@ public class User{
     }
 
     public int getAverageCaffeine() { return this.averageCaffeine; }
+
+    public List<Day> getDays() { return this.days; }
+
+    public void addDay(Day d) {
+
+        if(days.size() > 7) {
+            this.days.remove(0);
+        }
+
+        this.days.add(d);
+
+    }
 }
