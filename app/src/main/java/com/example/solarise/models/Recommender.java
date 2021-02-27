@@ -6,6 +6,8 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
+import java.time.LocalTime;
+import java.time.OffsetDateTime;
 import java.util.*;
 import static java.lang.Math.max;
 import java.time.LocalDateTime;
@@ -73,13 +75,49 @@ public class Recommender {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
+    public LocalTime earliestSleepRecommendation(List<Day> days) {
+
+
+        LocalTime earliestTime = OffsetDateTime.parse(days.get(0).getSleep_time()).toLocalTime();
+
+        for(Day d: days) {
+
+            LocalTime currentTime = OffsetDateTime.parse(d.getSleep_time()).toLocalTime();
+            if(currentTime.isBefore(earliestTime)) earliestTime = currentTime;
+
+        }
+
+        return earliestTime;
+
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public LocalTime latestSleepRecommendation(List<Day> days) {
+
+        LocalTime latestTime = OffsetDateTime.parse(days.get(0).getSleep_time()).toLocalTime();
+
+        for(Day d: days) {
+
+            LocalTime currentTime = OffsetDateTime.parse(d.getSleep_time()).toLocalTime();
+            if(currentTime.isAfter(latestTime)) latestTime = currentTime;
+
+        }
+
+        return latestTime;
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public Recommendation giveRecommendation(User user, int n) {
 
         List<Day> d = getBestDays(user, n);
         int sleepRec = sleepRecommendation(d);
         int caffeineRec = caffeineRecommendation(d);
+        LocalTime earlySleepRec = earliestSleepRecommendation(d);
+        LocalTime latestSleepRec = latestSleepRecommendation(d);
 
-        Recommendation r = new Recommendation(sleepRec, caffeineRec);
+        Recommendation r = new Recommendation(sleepRec, caffeineRec, earlySleepRec, latestSleepRec);
         return r;
 
 
