@@ -6,12 +6,14 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
-import java.time.LocalTime;
-import java.time.OffsetDateTime;
+
+
 import java.util.*;
 import static java.lang.Math.max;
+import java.time.LocalTime;
 import java.time.LocalDateTime;
 import java.time.Duration;
+import java.time.OffsetDateTime;
 
 public class Recommender {
 
@@ -78,11 +80,11 @@ public class Recommender {
     public LocalTime earliestSleepRecommendation(List<Day> days) {
 
 
-        LocalTime earliestTime = OffsetDateTime.parse(days.get(0).getSleep_time()).toLocalTime();
+        LocalTime earliestTime = LocalDateTime.parse(days.get(0).getSleep_time()).toLocalTime();
 
         for(Day d: days) {
 
-            LocalTime currentTime = OffsetDateTime.parse(d.getSleep_time()).toLocalTime();
+            LocalTime currentTime = LocalDateTime.parse(d.getSleep_time()).toLocalTime();
             if(currentTime.isBefore(earliestTime)) earliestTime = currentTime;
 
         }
@@ -95,11 +97,11 @@ public class Recommender {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public LocalTime latestSleepRecommendation(List<Day> days) {
 
-        LocalTime latestTime = OffsetDateTime.parse(days.get(0).getSleep_time()).toLocalTime();
+        LocalTime latestTime = LocalDateTime.parse(days.get(0).getSleep_time()).toLocalTime();
 
         for(Day d: days) {
 
-            LocalTime currentTime = OffsetDateTime.parse(d.getSleep_time()).toLocalTime();
+            LocalTime currentTime = LocalDateTime.parse(d.getSleep_time()).toLocalTime();
             if(currentTime.isAfter(latestTime)) latestTime = currentTime;
 
         }
@@ -137,3 +139,4 @@ class SortByRating implements Comparator<Day> {
     }
 
 }
+
