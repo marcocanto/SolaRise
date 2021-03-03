@@ -3,8 +3,6 @@ package com.example.solarise.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,11 +10,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.solarise.R;
 import com.example.solarise.models.User;
 import com.google.android.material.button.MaterialButtonToggleGroup;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class UserInfoActivity extends AppCompatActivity {
-    private EditText personName, personAge, personSleep, personHeight, personWeight;
+    private TextInputEditText personName, personAge, personCaffeine;
+    private Button btnEarlyBird, btnNightOwl;
     private FirebaseDatabase firebaseDatabase; //Root Node
     private DatabaseReference firebaseReference; //Reference to sub root levels
 
@@ -26,17 +26,13 @@ public class UserInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_info);
         personName = findViewById(R.id.etUserName);
         personAge = findViewById(R.id.etUserAge);
+        personCaffeine = findViewById(R.id.etCaffeine);
+        btnEarlyBird = findViewById(R.id.btnEarlyBird);
+        btnNightOwl = findViewById(R.id.btnNightOwl);
         Bundle bundle = getIntent().getExtras();
         String userUid = bundle.getString("uid");
 
-        Button btnEarlyBird = findViewById(R.id.btnEarlyBird);
-        Button btnNightOwl = findViewById(R.id.btnNightOwl);
         MaterialButtonToggleGroup toggleGroup = findViewById(R.id.toggleGroup);
-        NumberPicker averageCoffee = findViewById(R.id.npAverageCaffeine);
-        averageCoffee.setMinValue(0);
-        averageCoffee.setMaxValue(10);
-        averageCoffee.setWrapSelectorWheel(true);
-
 
         Button btnSubmit = findViewById(R.id.btnSubmit);
 

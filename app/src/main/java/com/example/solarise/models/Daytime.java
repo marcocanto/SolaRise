@@ -26,7 +26,7 @@ public class Daytime {
 
     String sunrise;
     String sunset;
-    public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:m a");
+    public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
 
     private DaytimeListener listener;
 

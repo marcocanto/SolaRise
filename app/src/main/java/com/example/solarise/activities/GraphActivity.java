@@ -9,16 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.solarise.R;
 import com.example.solarise.models.Day;
 import com.example.solarise.models.User;
-import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.AxisBase;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.ValueFormatter;
-
-import java.util.List;
 
 public class GraphActivity extends AppCompatActivity {
 
@@ -37,51 +27,51 @@ public class GraphActivity extends AppCompatActivity {
         Day d2 = new Day("2021-02-25T13:14:15.038415", "2021-02-24T13:14:15.038415", 3);
         Day d1 = new Day("2021-02-25T13:14:15.038415", "2021-02-25T13:14:15.038415", 3.5);
 
-        u.addDay(d5);
-        u.addDay(d4);
-        u.addDay(d3);
-        u.addDay(d2);
-        u.addDay(d1);
-
-        LineChart chart = (LineChart) findViewById(R.id.chart);
-        chart.setDrawGridBackground(false);
-        chart.setDrawBorders(false);
-        chart.animateX(1500);
+//        u.addDay(d5);
+//        u.addDay(d4);
+//        u.addDay(d3);
+//        u.addDay(d2);
+//        u.addDay(d1);
+//
+//        LineChart chart = (LineChart) findViewById(R.id.chart);
+//        chart.setDrawGridBackground(false);
+//        chart.setDrawBorders(false);
+//        chart.animateX(1500);
 //        chart.setBackgroundColor(Color.parseColor("#1f119c"));
 
-        final String[] dates = u.getDates();
+//        final String[] dates = u.getDates();
 
-        ValueFormatter formatter = new ValueFormatter() {
-
-            @Override
-            public String getAxisLabel(float value, AxisBase axis) {
-                return dates[(int) value];
-            }
-        };
-
-        XAxis xAxis = chart.getXAxis();
-        xAxis.setAxisMaximum(u.getDays().size());
-        xAxis.setLabelCount(u.getDays().size(), true);
-        xAxis.setValueFormatter(formatter);
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-//        xAxis.setTextSize(13);
-
-        YAxis leftAxis = chart.getAxisLeft();
-        leftAxis.setAxisMaximum(5);
-        leftAxis.setAxisMinimum(0);
-        leftAxis.setLabelCount(6, true);
-
-        YAxis rightAxis = chart.getAxisRight();
-        rightAxis.setEnabled(false);
-
-
-        List<Entry> entries = u.getUserDataForGraph();
-        LineDataSet dataSet = new LineDataSet(entries, "Rating");
-        dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-        dataSet.setValueTextSize(12);
-        LineData lineData = new LineData(dataSet);
-
-        chart.setData(lineData);
-        chart.invalidate();
+//        ValueFormatter formatter = new ValueFormatter() {
+//
+//            @Override
+//            public String getAxisLabel(float value, AxisBase axis) {
+//                return dates[(int) value];
+//            }
+//        };
+//
+//        XAxis xAxis = chart.getXAxis();
+//        xAxis.setAxisMaximum(u.getDays().size());
+//        xAxis.setLabelCount(u.getDays().size(), true);
+//        xAxis.setValueFormatter(formatter);
+//        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+////        xAxis.setTextSize(13);
+//
+//        YAxis leftAxis = chart.getAxisLeft();
+//        leftAxis.setAxisMaximum(5);
+//        leftAxis.setAxisMinimum(0);
+//        leftAxis.setLabelCount(6, true);
+//
+//        YAxis rightAxis = chart.getAxisRight();
+//        rightAxis.setEnabled(false);
+//
+//
+//        List<Entry> entries = u.getUserDataForGraph();
+//        LineDataSet dataSet = new LineDataSet(entries, "Rating");
+//        dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+//        dataSet.setValueTextSize(12);
+//        LineData lineData = new LineData(dataSet);
+//
+//        chart.setData(lineData);
+//        chart.invalidate();
     }
 }

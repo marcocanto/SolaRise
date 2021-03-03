@@ -9,7 +9,6 @@ public class User {
     private String uid;
     private int age;
     private boolean earlyBird;
-    private String test;
     private int averageCaffeine;
     private List<Day> days = new ArrayList<Day>();
 
@@ -62,6 +61,44 @@ public class User {
         this.days.add(d);
 
     }
+
+
+//    public List<Entry> getUserDataForGraph() {
+//
+//        List<Entry> entries = new ArrayList<>();
+//
+//        for(int i = 0; i < this.days.size(); ++i) {
+//
+//            entries.add(new Entry(i + 1, (float) this.days.get(i).getRating()));
+//
+//
+//        }
+//
+//        return entries;
+//
+//    }
+//
+//    @RequiresApi(api = Build.VERSION_CODES.O)
+//    public String[] getDates() {
+//
+//        String[] dates = new String[this.days.size() + 1];
+//        dates[0] = "";
+//        int ct = 1;
+//
+//        for(Day d: this.days) {
+//
+//            LocalDateTime l1 = LocalDateTime.parse(d.getWakeup_time());
+//            LocalDate date = l1.toLocalDate();
+//            String formattedDate = date.format(DateTimeFormatter.ofPattern("MM/dd"));
+////            String formattedDate = date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT));
+//            dates[ct++] = formattedDate;
+//        }
+//
+//        return dates;
+//
+//    }
+
+
 
     public String toString(){
         return "Name: " + name + " " + "Age: " + age + " " + "Early Bird: " + earlyBird + " " + "averageCaffeine: " + averageCaffeine;
