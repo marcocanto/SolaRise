@@ -28,6 +28,10 @@ android {
     }
 }
 
+repositories {
+    maven { url 'https://jitpack.io' }
+}
+
 dependencies {
     def activity_version = "1.2.0"
 
@@ -51,6 +55,8 @@ dependencies {
 
     implementation 'org.parceler:parceler-api:1.1.12'
     annotationProcessor 'org.parceler:parceler:1.1.12'
+
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
 }
 apply plugin: 'com.google.gms.google-services'
