@@ -26,6 +26,9 @@
     <string name="sunsetTime">TextView</string>
     <string name="early_bird">Early Bird</string>
     <string name="night_owl">Night Owl</string>
+    <string name="name">Name</string>
+    <string name="age">Age</string>
+    <string name="caffeine">Caffeine Intake</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="s" />
     <string name="my_name">My Name:</string>

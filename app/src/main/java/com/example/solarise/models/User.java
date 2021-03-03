@@ -9,6 +9,7 @@ public class User {
     private String uid;
     private int age;
     private boolean earlyBird;
+    private String test;
     private int averageCaffeine;
     private List<Day> days = new ArrayList<Day>();
 
