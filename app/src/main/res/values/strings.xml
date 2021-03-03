@@ -35,4 +35,7 @@
     <string name="display_age">Age:</string>
     <string name="display_coffee">Avg. Coffee Cups</string>
     <string name="avg_cof">Avg Coffee Cups:</string>
+    <string name="name">Name</string>
+    <string name="age">Age</string>
+    <string name="caffeine">Caffeine Intake</string>
 </resources>
