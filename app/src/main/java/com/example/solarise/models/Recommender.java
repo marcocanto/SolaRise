@@ -6,14 +6,14 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
-
-
-import java.util.*;
-import static java.lang.Math.max;
-import java.time.LocalTime;
-import java.time.LocalDateTime;
 import java.time.Duration;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+import static java.lang.Math.max;
 
 public class Recommender {
 
@@ -134,7 +134,7 @@ class SortByRating implements Comparator<Day> {
 
     public int compare(Day a, Day b) {
 
-        return a.rating - b.rating;
+        return (int) (a.rating - b.rating);
 
     }
 

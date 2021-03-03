@@ -1,11 +1,10 @@
 package com.example.solarise.activities;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.solarise.R;
 import com.example.solarise.models.Day;
@@ -29,7 +28,8 @@ public class GraphActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph);
 
-        User u = new User("Rad", 21, true, 3);
+        User u = new User("Rad", 21, true, 3, "dummy");
+
 
         Day d5 = new Day("2021-02-25T13:14:15", "2021-02-21T20:14:15", 5);
         Day d4 = new Day("2021-02-25T14:14:15", "2021-02-22T21:30:15", 4.5);
