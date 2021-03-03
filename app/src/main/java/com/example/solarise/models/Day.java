@@ -7,31 +7,31 @@ public class Day {
 
     String sleep_time;
     String wakeup_time;
-    int rating;
+    double rating;
     List<Coffee> caffeine_intake = new ArrayList<Coffee>();
 
     public Day() {}
 
-    public Day(String sleep_time, String wakeup_time, int rating) {
+    public Day(String sleep_time, String wakeup_time, double rating) {
         this.sleep_time = sleep_time;
         this.wakeup_time = wakeup_time;
         this.rating = rating;
     }
 
     public List<Coffee> getCaffeine_intake() {
-        return caffeine_intake;
+        return this.caffeine_intake;
     }
 
-    public int getRating() {
-        return rating;
+    public double getRating() {
+        return this.rating;
     }
 
     public String getSleep_time() {
-        return sleep_time;
+        return this.sleep_time;
     }
 
     public String getWakeup_time() {
-        return wakeup_time;
+        return this.wakeup_time;
     }
 
     public void setCaffeine_intake(List<Coffee> caffeine_intake) {
