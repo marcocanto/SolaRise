@@ -26,4 +26,13 @@
     <string name="sunsetTime">TextView</string>
     <string name="early_bird">Early Bird</string>
     <string name="night_owl">Night Owl</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="s" />
+    <string name="my_name">My Name:</string>
+    <string name="ss">Sleep Preference</string>
+    <string name="sleep_pref">Sleep Pref:</string>
+    <string name="sss">Age</string>
+    <string name="display_age">Age:</string>
+    <string name="display_coffee">Avg. Coffee Cups</string>
+    <string name="avg_cof">Avg Coffee Cups:</string>
 </resources>
