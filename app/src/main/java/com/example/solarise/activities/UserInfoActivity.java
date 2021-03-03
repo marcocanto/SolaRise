@@ -29,6 +29,9 @@ public class UserInfoActivity extends AppCompatActivity {
         personCaffeine = findViewById(R.id.etCaffeine);
         btnEarlyBird = findViewById(R.id.btnEarlyBird);
         btnNightOwl = findViewById(R.id.btnNightOwl);
+        Bundle bundle = getIntent().getExtras();
+        String userUid = bundle.getString("uid");
+
         MaterialButtonToggleGroup toggleGroup = findViewById(R.id.toggleGroup);
 
         Button btnSubmit = findViewById(R.id.btnSubmit);
@@ -37,14 +40,12 @@ public class UserInfoActivity extends AppCompatActivity {
             String userName = personName.getText().toString();
             String userAge = personAge.getText().toString();
             boolean userSleep;
-            int userHeight = 1;
-            int userWeight = 1;
             if (forms_completed(toggleGroup, userName, userAge)) {
                 userSleep = toggleGroup.getCheckedButtonId() == R.id.btnEarlyBird;
-                User user1 = new User(userName, Integer.parseInt(userAge), userSleep, userHeight, userWeight);
+                User user1 = new User(userName, Integer.parseInt(userAge), userSleep, 1, userUid);
                 firebaseDatabase = FirebaseDatabase.getInstance();
                 firebaseReference = firebaseDatabase.getReference("Users");
-                firebaseReference.child(userName).setValue(user1);
+                firebaseReference.child(userUid).setValue(user1);
 
                 startActivity(new Intent(this, MainActivity.class));
                 finish();

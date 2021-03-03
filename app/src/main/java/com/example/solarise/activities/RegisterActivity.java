@@ -2,6 +2,7 @@ package com.example.solarise.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -42,8 +43,14 @@ public class RegisterActivity extends AppCompatActivity {
                 firebaseAuth.createUserWithEmailAndPassword(user_email, user_pass).addOnCompleteListener(task -> {
                     if(task.isSuccessful()) {
                         Toast.makeText(RegisterActivity.this, "Successfully Registered", Toast.LENGTH_SHORT).show();
-                        //setContentView(R.layout.activity_user_info);
-                        startActivity(new Intent(RegisterActivity.this, UserInfoActivity.class));
+                        firebaseAuth.signInWithEmailAndPassword(user_email, user_pass);
+                        String uid = firebaseAuth.getUid();
+                        Log.d("TAG", uid);
+                        Intent intent = new Intent(this, UserInfoActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("uid", uid);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
                     }
                     else{
                         Toast.makeText(RegisterActivity.this, "Register Failed", Toast.LENGTH_SHORT).show();

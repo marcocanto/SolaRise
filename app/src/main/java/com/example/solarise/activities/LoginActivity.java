@@ -11,7 +11,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.solarise.R;
-import com.example.solarise.models.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -42,10 +41,10 @@ public class LoginActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser current_user = firebaseAuth.getCurrentUser();
 
-        if (current_user != null){
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-        }
+//        if (current_user != null){
+//            Intent intent = new Intent(this, MainActivity.class);
+//            startActivity(intent);
+//        }
 
         Login.setOnClickListener((View v) -> {
             authentication(Username.getText().toString(), Password.getText().toString());
@@ -61,12 +60,9 @@ public class LoginActivity extends AppCompatActivity {
         firebaseAuth.signInWithEmailAndPassword(user, pass).addOnCompleteListener(task -> {
             if(task.isSuccessful()){
                 progress.dismiss();
-                User test = new User("Keenan", 21, true, 60, 125);
-                firebaseDatabase  = FirebaseDatabase.getInstance();
-                firebaseReference = firebaseDatabase.getReference("Users");
-                firebaseReference.child("Keenan").setValue(test);
+
                 Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                startActivity(new Intent(LoginActivity.this, TestActivity.class));
             }
             else{
                 Toast.makeText(LoginActivity.this, "Login Failed Incorrect Credentials", Toast.LENGTH_SHORT).show();
