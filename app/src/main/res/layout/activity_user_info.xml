@@ -25,22 +25,20 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:paddingLeft="30dp"
         android:paddingRight="30dp">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInput"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
+            android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etUserName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/name"
-                />
+                android:hint="@string/name" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -57,7 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/age"
-                android:inputType="number"/>
+                android:inputType="number" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -65,8 +63,10 @@
             android:id="@+id/caffeineInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_above="@+id/toggleGroup"
             android:layout_below="@+id/ageInput"
             android:layout_alignParentStart="true"
+            android:layout_marginBottom="10dp"
             android:paddingTop="10dp">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -74,7 +74,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/caffeine"
-                android:inputType="number"/>
+                android:inputType="number" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -83,6 +83,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/btnSubmit"
+            android:layout_alignParentBottom="@+id/btnSubmit"
             android:layout_marginBottom="10dp"
             app:singleSelection="true">
 
@@ -109,8 +110,9 @@
             android:id="@+id/btnSubmit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="@+id/toggleGroup"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="7dp"
+            android:layout_marginBottom="2dp"
             android:text="@string/submit" />
 
     </RelativeLayout>
