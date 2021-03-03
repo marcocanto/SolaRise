@@ -1,5 +1,14 @@
 package com.example.solarise.models;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
+import com.github.mikephil.charting.data.Entry;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,4 +64,40 @@ public class User{
         this.days.add(d);
 
     }
+
+    public List<Entry> getUserDataForGraph() {
+
+        List<Entry> entries = new ArrayList<>();
+
+        for(int i = 0; i < this.days.size(); ++i) {
+
+            entries.add(new Entry(i + 1, (float) this.days.get(i).getRating()));
+
+
+        }
+
+        return entries;
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public String[] getDates() {
+
+        String[] dates = new String[this.days.size() + 1];
+        dates[0] = "";
+        int ct = 1;
+
+        for(Day d: this.days) {
+
+            LocalDateTime l1 = LocalDateTime.parse(d.getWakeup_time());
+            LocalDate date = l1.toLocalDate();
+            String formattedDate = date.format(DateTimeFormatter.ofPattern("MM/dd"));
+//            String formattedDate = date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT));
+            dates[ct++] = formattedDate;
+        }
+
+        return dates;
+
+    }
+
 }
