@@ -43,16 +43,8 @@ public class RetrieveDB {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         };
-
         itemsRef.addListenerForSingleValueEvent(valueEventListener);
-
-
-
-
     }
-
-
 }
