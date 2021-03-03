@@ -29,40 +29,54 @@
         android:paddingLeft="30dp"
         android:paddingRight="30dp">
 
-        <EditText
-            android:id="@+id/etUserName"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="15dp"
-            android:autofillHints=""
-            android:ems="10"
-            android:fontFamily="sans-serif"
-            android:hint="Name"
-            android:inputType="textPersonName"
-            android:textAlignment="center" />
+            >
 
-        <EditText
-            android:id="@+id/etUserAge"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etUserName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/name"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/ageInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/etUserName"
-            android:layout_marginTop="1dp"
-            android:ems="10"
-            android:hint="Age"
-            android:inputType="textPersonName"
-            android:textAlignment="center" />
+            android:layout_below="@+id/textInput"
+            android:layout_alignParentStart="true"
+            android:paddingTop="10dp">
 
-        <NumberPicker
-            android:id="@+id/npAverageCaffeine"
-            android:layout_width="101dp"
-            android:layout_height="54dp"
-            android:layout_above="@+id/toggleGroup"
-            android:layout_below="@+id/etUserAge"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="10dp" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etUserAge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/age"
+                android:inputType="number"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/caffeineInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ageInput"
+            android:layout_alignParentStart="true"
+            android:paddingTop="10dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etCaffeine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/caffeine"
+                android:inputType="number"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButtonToggleGroup
             android:id="@+id/toggleGroup"
@@ -91,30 +105,13 @@
         </com.google.android.material.button.MaterialButtonToggleGroup>
 
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSubmit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="7dp"
             android:text="@string/submit" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="227dp"
-            android:layout_height="54dp"
-            android:layout_above="@+id/toggleGroup"
-            android:layout_below="@+id/etUserAge"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="10dp"
-            android:layout_toStartOf="@+id/npAverageCaffeine"
-            android:gravity="center"
-            android:text="Average Coffee Intake"
-            android:textColor="@android:color/primary_text_light"
-            android:textSize="18sp" />
 
     </RelativeLayout>
 
