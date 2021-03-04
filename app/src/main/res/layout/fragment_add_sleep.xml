@@ -1,0 +1,235 @@
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="8dp">
+
+
+    <RelativeLayout
+        android:id="@+id/edit_name"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvTitle"
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="20dp"
+            android:text="Enter Sleep Data"
+            android:textSize="24sp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnWakeUp"
+            android:layout_width="133dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/btnSleepStart"
+            android:layout_alignStart="@+id/btnSleepStart"
+            android:layout_alignEnd="@+id/btnSleepStart"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="-2dp"
+            android:text="Wake Up" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSleepStart"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_below="@+id/tvTitle"
+            android:layout_alignStart="@+id/tvTitle"
+            android:layout_marginStart="-2dp"
+            android:layout_marginTop="8dp"
+            android:text="Fall Asleep" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvSleepStart"
+            android:layout_width="119dp"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/btnSleepStart"
+            android:layout_alignEnd="@+id/tvTitle"
+            android:layout_marginStart="11dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="1dp"
+            android:layout_toEndOf="@+id/btnSleepStart"
+            android:background="@drawable/text_border"
+            android:gravity="center"
+            android:text="00:00"
+            android:textSize="24sp" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvWakeUp"
+            android:layout_width="122dp"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/btnWakeUp"
+            android:layout_alignEnd="@+id/tvSleepStart"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="-1dp"
+            android:layout_toEndOf="@+id/btnSleepStart"
+            android:background="@drawable/text_border"
+            android:gravity="center"
+            android:text="00:00"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btnWakeUp"
+            android:layout_alignStart="@+id/btnWakeUp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="9dp"
+            android:layout_marginEnd="179dp"
+            android:gravity="center"
+            android:text="Sleep Rating"
+            android:textSize="18sp" />
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            style="@style/Widget.AppCompat.RatingBar"
+            android:layout_width="232dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView"
+            android:layout_alignStart="@+id/textView"
+            android:layout_alignEnd="@+id/tvWakeUp"
+            android:layout_marginStart="9dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="17dp"
+            android:numStars="5"
+            android:rating="5"
+            android:stepSize=".5" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnClose"
+            android:layout_width="71dp"
+            android:layout_height="33dp"
+            android:layout_below="@+id/ratingBar"
+            android:layout_alignStart="@+id/textView"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="9dp"
+            android:layout_marginBottom="10dp"
+            android:text="Close"
+            android:textSize="8sp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSubmit"
+            android:layout_width="66dp"
+            android:layout_height="33dp"
+            android:layout_below="@+id/ratingBar"
+            android:layout_alignEnd="@+id/tvWakeUp"
+            android:layout_marginTop="9dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginBottom="10dp"
+            android:text="submit"
+            android:textSize="8sp" />
+
+    </RelativeLayout>
+
+
+</com.google.android.material.card.MaterialCardView>
+<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    android:id="@+id/edit_name"-->
+<!--    android:layout_width="300dp"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:layout_gravity="center"-->
+<!--    android:orientation="vertical">-->
+
+
+<!--    <Button-->
+<!--        android:id="@+id/btnWakeUp"-->
+<!--        android:layout_width="133dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/btnSleepStart"-->
+<!--        android:layout_alignEnd="@+id/btnSleepStart"-->
+<!--        android:layout_alignParentStart="true"-->
+<!--        android:layout_marginStart="20dp"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:layout_marginEnd="-2dp"-->
+<!--        android:text="Wake Up" />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/btnSleepStart"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentStart="true"-->
+<!--        android:layout_alignParentTop="true"-->
+<!--        android:layout_marginStart="20dp"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:text="Sleep start" />-->
+
+<!--    <RatingBar-->
+<!--        android:id="@+id/ratingBar"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@+id/btnWakeUp"-->
+<!--        android:layout_alignParentStart="true"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_marginStart="20dp"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:layout_marginEnd="20dp"-->
+<!--        android:isIndicator="false"-->
+<!--        android:numStars="5"-->
+<!--        android:rating="5"-->
+<!--        android:stepSize=".5" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/tvSleepStart"-->
+<!--        android:layout_width="108dp"-->
+<!--        android:layout_height="47dp"-->
+<!--        android:layout_alignParentTop="true"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_marginStart="6dp"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:layout_marginEnd="20dp"-->
+<!--        android:layout_toEndOf="@+id/btnSleepStart"-->
+<!--        android:gravity="center"-->
+<!--        android:text="00:00"-->
+<!--        android:textSize="24sp" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/tvWakeUp"-->
+<!--        android:layout_width="108dp"-->
+<!--        android:layout_height="47dp"-->
+<!--        android:layout_alignTop="@+id/btnWakeUp"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_marginStart="5dp"-->
+<!--        android:layout_marginTop="0dp"-->
+<!--        android:layout_marginEnd="20dp"-->
+<!--        android:layout_toEndOf="@+id/btnSleepStart"-->
+<!--        android:gravity="center"-->
+<!--        android:text="00:00"-->
+<!--        android:textSize="24sp" />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/btnClose"-->
+<!--        android:layout_width="71dp"-->
+<!--        android:layout_height="33dp"-->
+<!--        android:layout_below="@+id/ratingBar"-->
+<!--        android:layout_alignParentStart="true"-->
+<!--        android:layout_marginStart="20dp"-->
+<!--        android:layout_marginTop="9dp"-->
+<!--        android:layout_marginBottom="10dp"-->
+<!--        android:text="Close"-->
+<!--        android:textSize="8sp" />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/btnAddSleep"-->
+<!--        android:layout_width="66dp"-->
+<!--        android:layout_height="33dp"-->
+<!--        android:layout_below="@+id/ratingBar"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:layout_marginEnd="22dp"-->
+<!--        android:layout_marginBottom="10dp"-->
+<!--        android:text="submit"-->
+<!--        android:textSize="8sp" />-->
+<!--</RelativeLayout>-->
