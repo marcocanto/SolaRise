@@ -3,10 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:elevation="0dp">
 
 
     <LinearLayout
+        android:elevation="2dp"
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="200dp"
@@ -25,6 +27,7 @@
             android:background="@android:color/background_light"
             app:cardCornerRadius="10dp"
             app:cardElevation="8dp"
+            android:elevation="8dp"
             app:cardUseCompatPadding="false">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -78,11 +81,13 @@
             android:layout_margin="10dp"
             android:layout_weight="1"
             app:cardCornerRadius="10dp"
-            app:cardElevation="8dp">
+            app:cardElevation="8dp"
+            android:elevation="8dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:elevation="2dp">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/materialTextView2"
@@ -131,6 +136,7 @@
         android:layout_marginLeft="20dp"
         app:cardCornerRadius="10dp"
         app:cardElevation="8dp"
+        android:elevation="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
@@ -177,6 +183,7 @@
         android:layout_gravity="bottom|end"
         android:tint="@android:color/white"
         android:elevation="10dp"
+        app:elevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_add" />
@@ -194,7 +201,9 @@
         app:layout_constraintEnd_toEndOf="@+id/add_btn"
         app:layout_constraintStart_toStartOf="@+id/add_btn"
         android:layout_gravity="bottom|end"
+        android:visibility="invisible"
         android:elevation="10dp"
+        app:elevation="10dp"
         app:srcCompat="@drawable/ic_bed" />
 
 <!--        android:visibility="invisible"-->
@@ -206,7 +215,9 @@
         android:clickable="true"
         android:focusable="true"
         android:layout_gravity="bottom|end"
+        android:visibility="invisible"
         android:elevation="10dp"
+        app:elevation="10dp"
         app:fabSize="mini"
         app:layout_constraintBottom_toTopOf="@+id/sleep_btn"
         app:layout_constraintEnd_toEndOf="@+id/sleep_btn"

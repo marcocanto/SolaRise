@@ -280,9 +280,7 @@ public class MainActivity extends AppCompatActivity {
     }
     private void setVisibility(boolean clicked) {
         if (!clicked) {
-            fab_sleep.bringToFront();
             fab_sleep.show();
-            fab_coffee.bringToFront();
             fab_coffee.show();
         } else {
             fab_coffee.hide();
