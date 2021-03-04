@@ -1,7 +1,8 @@
 package com.example.solarise.activities;
 
 import android.Manifest;
-import android.content.Intent;
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
@@ -9,18 +10,18 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.util.Log;
-import android.widget.Button;
-import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.solarise.R;
+import com.example.solarise.fragments.CaffeineEntryDialogFragment;
+import com.example.solarise.fragments.SleepEntryDialogFragment;
 import com.example.solarise.models.Day;
 import com.example.solarise.models.Daytime;
 import com.example.solarise.models.User;
@@ -38,7 +39,7 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
-import com.google.firebase.auth.FirebaseAuth;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -59,36 +60,36 @@ public class MainActivity extends AppCompatActivity {
     private LocationRequest locationRequest;
     private LocationCallback locationCallback;
 
-    private RatingBar ratingBar;
-    private Button ratingButton;
-    private Button logout;
+    private FloatingActionButton fab;
+    private FloatingActionButton fab_coffee;
+    private FloatingActionButton fab_sleep;
+    private Animator rotate_open;
+    private Animator rotate_close;
+    private boolean fab_clicked;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dashboard);
+        setContentView(R.layout.activity_fab);
 
-        ratingBar = (RatingBar) findViewById(R.id.rbSleepRating);
-        ratingButton = (Button) findViewById(R.id.btnRatingSubmit);
+
+        fab = findViewById(R.id.add_btn);
+        fab_coffee = findViewById(R.id.coffee_btn);
+        fab_sleep = findViewById(R.id.sleep_btn);
+        fab_clicked = false;
+
+        rotate_open = AnimatorInflater.loadAnimator(this, R.animator.rotate_open_anim);
+        rotate_close = AnimatorInflater.loadAnimator(this, R.animator.rotate_close_anim);
+        rotate_open.setTarget(fab);
+        rotate_close.setTarget(fab);
 
         TextView tvSunriseTime = findViewById(R.id.tvSunriseTime);
         TextView tvSunsetTime = findViewById(R.id.tvSunsetTime);
 
-        ratingButton.setOnClickListener(view -> {
-            int numStars = ratingBar.getNumStars();
-            float rating = ratingBar.getRating();
-            Toast.makeText(this, "Rating: " + rating + "/" + numStars, Toast.LENGTH_SHORT).show();
-        });
-
-        logout = (Button)findViewById(R.id.btnLogout);
-
-        logout.setOnClickListener(v -> {
-            FirebaseAuth.getInstance().signOut();
-            Toast.makeText(this, "Logging Out...", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(MainActivity.this, LoginActivity.class));
-            finish();
-        });
+        fab.setOnClickListener(v -> onAddButtonClicked());
+        fab_sleep.setOnClickListener(v -> showSleepDialog());
+        fab_coffee.setOnClickListener(v -> showCaffeineDialog());
 
         // set up the network client to send API requests
         client = new OpenWeatherClient();
@@ -270,4 +271,41 @@ public class MainActivity extends AppCompatActivity {
             Log.i(TAG, "permission denied");
         }
     });
+
+
+    private void onAddButtonClicked() {
+        setVisibility(fab_clicked);
+        setAnimation(fab_clicked);
+        fab_clicked = !fab_clicked;
+    }
+    private void setVisibility(boolean clicked) {
+        if (!clicked) {
+            fab_sleep.bringToFront();
+            fab_sleep.show();
+            fab_coffee.bringToFront();
+            fab_coffee.show();
+        } else {
+            fab_coffee.hide();
+            fab_sleep.hide();
+        }
+    }
+
+    private void setAnimation(boolean clicked) {
+        if (!clicked) {
+            rotate_open.start();
+        } else {
+            rotate_close.start();
+        }
+    }
+    private void showSleepDialog() {
+        FragmentManager fm = getSupportFragmentManager();
+        SleepEntryDialogFragment sleepEntryDialogFragment = SleepEntryDialogFragment.newInstance("Some Title");
+        sleepEntryDialogFragment.show(fm, "fragment_edit_name");
+    }
+
+    private void showCaffeineDialog() {
+        FragmentManager fm = getSupportFragmentManager();
+        CaffeineEntryDialogFragment caffeineEntryDialogFragment = CaffeineEntryDialogFragment.newInstance("Some title");
+        caffeineEntryDialogFragment.show(fm, "fragment_alert");
+    }
 }

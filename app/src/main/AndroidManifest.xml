@@ -17,8 +17,7 @@
         <activity android:name=".activities.MainActivity" />
         <activity android:name=".activities.RegisterActivity" />
         <activity android:name=".activities.TestActivity"/>
-        <activity android:name=".activities.LoginActivity"/>
-        <activity android:name=".activities.FabActivity">
+        <activity android:name=".activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
