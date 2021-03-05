@@ -1,5 +1,6 @@
 package com.example.solarise.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -24,7 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class TestActivity extends AppCompatActivity {
+public class EditProfile extends AppCompatActivity {
   //  ArrayList<User> allUsers = new ArrayList<>();
     HashMap<String, User> allUsers = new HashMap();
     ArrayList<String> userInfo = new ArrayList();
@@ -34,13 +35,14 @@ public class TestActivity extends AppCompatActivity {
     private ListView listView;
     private TextView editName, editAge, editSleepPref, editCaffeiene;
     private String oName, oAge, oSleep, oCaffeiene;
-    private Button editProfile;
+    private Button editProfile, editHome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test);
+        setContentView(R.layout.activity_edit_profile);
         editProfile = (Button)findViewById(R.id.editProfile);
+        editHome = (Button)findViewById(R.id.editHome);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = user.getUid();
         RetrieveDB retrieve = new RetrieveDB(uid);
@@ -78,6 +80,10 @@ public class TestActivity extends AppCompatActivity {
 
             }
 
+        });
+
+        editHome.setOnClickListener(v -> {
+            startActivity(new Intent(EditProfile.this, MainActivity.class));
         });
 
         editProfile.setOnClickListener(v -> {

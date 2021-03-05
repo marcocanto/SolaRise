@@ -62,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
                 progress.dismiss();
 
                 Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(LoginActivity.this, TestActivity.class));
+                startActivity(new Intent(LoginActivity.this, EditProfile.class));
             }
             else{
                 Toast.makeText(LoginActivity.this, "Login Failed Incorrect Credentials", Toast.LENGTH_SHORT).show();
