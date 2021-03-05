@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         TextView tvSunsetTime = findViewById(R.id.tvSunsetTime);
 
         appToolbar.setOnMenuItemClickListener(item -> {
-            Intent intent = new Intent(getApplicationContext(), TestActivity.class);
+            Intent intent = new Intent(getApplicationContext(), EditProfile.class);
             startActivity(intent);
             return true;
         });
