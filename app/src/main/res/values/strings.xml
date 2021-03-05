@@ -39,4 +39,5 @@
     <string name="display_coffee">Avg. Coffee Cups</string>
     <string name="avg_cof">Avg Coffee Cups:</string>
     <string name="sleep_start_time">%1$02d:%2$02d</string>
+    <string name="recommendations">Recommendations</string>
 </resources>

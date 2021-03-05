@@ -41,10 +41,10 @@ public class LoginActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser current_user = firebaseAuth.getCurrentUser();
 
-//        if (current_user != null){
-//            Intent intent = new Intent(this, MainActivity.class);
-//            startActivity(intent);
-//        }
+        if (current_user != null){
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
 
         Login.setOnClickListener((View v) -> {
             authentication(Username.getText().toString(), Password.getText().toString());

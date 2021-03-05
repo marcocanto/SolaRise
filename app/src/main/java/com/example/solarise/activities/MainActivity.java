@@ -3,6 +3,7 @@ package com.example.solarise.activities;
 import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
@@ -39,6 +40,7 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.time.LocalDate;
@@ -60,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
     private LocationRequest locationRequest;
     private LocationCallback locationCallback;
 
+    private MaterialToolbar appToolbar;
+
     private FloatingActionButton fab;
     private FloatingActionButton fab_coffee;
     private FloatingActionButton fab_sleep;
@@ -79,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
         fab_sleep = findViewById(R.id.sleep_btn);
         fab_clicked = false;
 
+        appToolbar = findViewById(R.id.topAppBar);
+
         rotate_open = AnimatorInflater.loadAnimator(this, R.animator.rotate_open_anim);
         rotate_close = AnimatorInflater.loadAnimator(this, R.animator.rotate_close_anim);
         rotate_open.setTarget(fab);
@@ -86,6 +92,12 @@ public class MainActivity extends AppCompatActivity {
 
         TextView tvSunriseTime = findViewById(R.id.tvSunriseTime);
         TextView tvSunsetTime = findViewById(R.id.tvSunsetTime);
+
+        appToolbar.setOnMenuItemClickListener(item -> {
+            Intent intent = new Intent(getApplicationContext(), TestActivity.class);
+            startActivity(intent);
+            return true;
+        });
 
         fab.setOnClickListener(v -> onAddButtonClicked());
         fab_sleep.setOnClickListener(v -> showSleepDialog());
