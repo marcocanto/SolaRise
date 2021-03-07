@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/logout"
+        android:title="@string/logout_button"
+        android:contentDescription="@string/logout_button"
+        app:showAsAction="withText"
+        />
+
+    <item
+        android:id="@+id/dashboard"
+        android:icon="@drawable/ic_home"
+        android:title="@string/dashboard"
+        android:contentDescription="@string/edit_profile"
+        app:showAsAction="ifRoom" />
+
+</menu>

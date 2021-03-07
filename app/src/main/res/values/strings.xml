@@ -22,7 +22,7 @@
     <string name="home_button">HOME</string>
     <string name="settings_button">SETTINGS</string>
     <string name="submit">Submit</string>
-    <string name="logout_button">LOG OUT</string>
+    <string name="logout_button">Logout</string>
     <string name="sunsetTime">TextView</string>
     <string name="early_bird">Early Bird</string>
     <string name="night_owl">Night Owl</string>
@@ -40,4 +40,5 @@
     <string name="avg_cof">Avg Coffee Cups:</string>
     <string name="sleep_start_time">%1$02d:%2$02d</string>
     <string name="recommendations">Recommendations</string>
+    <string name="dashboard">Dashboard</string>
 </resources>

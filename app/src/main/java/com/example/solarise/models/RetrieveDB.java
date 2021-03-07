@@ -10,6 +10,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class RetrieveDB {
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -31,10 +32,10 @@ public class RetrieveDB {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()){
                     String userName = snapshot.child(uid).child("userName").getValue(String.class);
-                    String age = snapshot.child(uid).child("age").getValue().toString();
-                    String earlyBird = snapshot.child(uid).child("sleepPreference").getValue().toString();
-                    String caffeine = snapshot.child(uid).child("averageCaffeine").getValue().toString();
-                    String auid = snapshot.child(uid).child("uid").getValue().toString();
+                    String age = Objects.requireNonNull(snapshot.child(uid).child("age").getValue()).toString();
+                    String earlyBird = Objects.requireNonNull(snapshot.child(uid).child("sleepPreference").getValue()).toString();
+                    String caffeine = Objects.requireNonNull(snapshot.child(uid).child("averageCaffeine").getValue()).toString();
+                    String auid = Objects.requireNonNull(snapshot.child(uid).child("uid").getValue()).toString();
                     allUsers.put(uid, new User(userName, Integer.parseInt(age), Boolean.parseBoolean(earlyBird), Integer.parseInt(caffeine), auid));
                     reader.onCallBack(allUsers);
 
