@@ -17,6 +17,8 @@
         <activity android:name=".activities.MainActivity" />
         <activity android:name=".activities.RegisterActivity" />
         <activity android:name=".activities.EditProfile"/>
+        <receiver android:name=".models.NotificationReceiver"></receiver>
+        <receiver android:name=".models.CoffeeReceiver"></receiver>
         <activity android:name=".activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

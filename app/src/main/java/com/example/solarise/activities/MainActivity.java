@@ -3,6 +3,8 @@ package com.example.solarise.activities;
 import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
@@ -23,8 +25,10 @@ import androidx.fragment.app.FragmentManager;
 import com.example.solarise.R;
 import com.example.solarise.fragments.CaffeineEntryDialogFragment;
 import com.example.solarise.fragments.SleepEntryDialogFragment;
+import com.example.solarise.models.CoffeeReceiver;
 import com.example.solarise.models.Day;
 import com.example.solarise.models.Daytime;
+import com.example.solarise.models.NotificationReceiver;
 import com.example.solarise.models.User;
 import com.example.solarise.network.OpenWeatherClient;
 import com.github.mikephil.charting.charts.LineChart;
@@ -43,11 +47,16 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class MainActivity extends AppCompatActivity {
@@ -76,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fab);
-
 
         fab = findViewById(R.id.add_btn);
         fab_coffee = findViewById(R.id.coffee_btn);
@@ -135,11 +143,15 @@ public class MainActivity extends AppCompatActivity {
             currentDaytime.setDaytimeFromJSON(json);
             tvSunriseTime.setText(currentDaytime.getSunrise());
             tvSunsetTime.setText(currentDaytime.getSunset());
+            sunlightAlarm(tvSunsetTime.getText().toString());
+            coffeeAlarm(tvSunsetTime.getText().toString());
         });
 
         getCurrentLocation(fusedLocationClient);
         tvSunriseTime.setText(currentDaytime.getSunrise());
         tvSunsetTime.setText(currentDaytime.getSunset());
+
+
 
         User u = new User("Rad", 21, true, 3, "test_user");
 
@@ -317,5 +329,53 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fm = getSupportFragmentManager();
         CaffeineEntryDialogFragment caffeineEntryDialogFragment = CaffeineEntryDialogFragment.newInstance("Some title");
         caffeineEntryDialogFragment.show(fm, "fragment_alert");
+    }
+
+    public void sunlightAlarm(String sunset) {
+
+        LocalTime lt = LocalTime.parse(sunset, DateTimeFormatter.ofPattern("hh:mm a"));
+
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, lt.getHour() - 1);
+        calendar.set(Calendar.MINUTE, lt.getMinute());
+        calendar.set(Calendar.SECOND, 0);
+
+        if (calendar.getTime().compareTo(new Date()) < 0)
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+
+        Intent intent = new Intent(getApplicationContext(), NotificationReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+        if (alarmManager != null) {
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+
+        }
+
+    }
+
+    public void coffeeAlarm(String sunset) {
+
+        LocalTime lt = LocalTime.parse(sunset, DateTimeFormatter.ofPattern("hh:mm a"));
+
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, lt.getHour());
+        calendar.set(Calendar.MINUTE, lt.getMinute());
+        calendar.set(Calendar.SECOND, 0);
+
+        if (calendar.getTime().compareTo(new Date()) < 0)
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+
+        Intent intent = new Intent(getApplicationContext(), CoffeeReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+        if (alarmManager != null) {
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+
+        }
+
     }
 }
