@@ -56,13 +56,6 @@ public class UserInfoActivity extends AppCompatActivity {
     }
 
     public boolean forms_completed(MaterialButtonToggleGroup toggleGroup, String username, String age) {
-        if (toggleGroup.getCheckedButtonId() == -1) {
-            Toast.makeText(UserInfoActivity.this, "Select a sleep preference", Toast.LENGTH_SHORT).show();
-            return false;
-        } else {
-            Toast.makeText(UserInfoActivity.this, "selected button" + toggleGroup.getCheckedButtonId(), Toast.LENGTH_SHORT).show();
-        }
-        return true;
+        return toggleGroup.getCheckedButtonId() != -1 && username.length() > 0 && age.length() > 0;
     }
-
 }

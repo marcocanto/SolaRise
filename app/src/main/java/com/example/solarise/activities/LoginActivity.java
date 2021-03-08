@@ -44,6 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         if (current_user != null){
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
+            finish();
         }
 
         Login.setOnClickListener((View v) -> {
@@ -60,9 +61,9 @@ public class LoginActivity extends AppCompatActivity {
         firebaseAuth.signInWithEmailAndPassword(user, pass).addOnCompleteListener(task -> {
             if(task.isSuccessful()){
                 progress.dismiss();
-
                 Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(LoginActivity.this, EditProfile.class));
+                finish();
             }
             else{
                 Toast.makeText(LoginActivity.this, "Login Failed Incorrect Credentials", Toast.LENGTH_SHORT).show();

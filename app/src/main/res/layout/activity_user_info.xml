@@ -23,8 +23,8 @@
 
     <ImageView
         android:id="@+id/ivSunMask"
-        android:layout_width="323dp"
-        android:layout_height="330dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="@drawable/sun_mask"
         app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
         app:layout_constraintEnd_toEndOf="parent"
