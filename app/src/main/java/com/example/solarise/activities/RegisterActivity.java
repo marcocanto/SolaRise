@@ -15,7 +15,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private EditText email, userName, passWord;
+    private EditText email, passWord;
     private Button registerButton;
     private TextView Login;
     private FirebaseAuth firebaseAuth;
@@ -35,10 +35,6 @@ public class RegisterActivity extends AppCompatActivity {
                 // upload to database
                 String user_email = email.getText().toString();
                 String user_pass = passWord.getText().toString();
-//                    test_User aUser = new test_User(user_email,user_pass);
-//                    firebaseDatabase  = FirebaseDatabase.getInstance();
-//                    firebaseReference = firebaseDatabase.getReference("Users");
-//                    firebaseReference.child(user_email).setValue(aUser);
 
                 firebaseAuth.createUserWithEmailAndPassword(user_email, user_pass).addOnCompleteListener(task -> {
                     if(task.isSuccessful()) {
@@ -64,7 +60,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void initializeViews(){
         email = findViewById(R.id.etRegisterEmail);
-        userName = findViewById(R.id.etRegisterUsername);
         passWord = findViewById(R.id.etRegisterPassword);
         registerButton = findViewById(R.id.btnRegister);
         Login = findViewById(R.id.tvReturnLogin);
@@ -72,10 +67,9 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private boolean completed(){
-        String user = userName.getText().toString();
         String pass = passWord.getText().toString();
         String remail = email.getText().toString();
-        if (remail.isEmpty() || user.isEmpty() || pass.isEmpty()){
+        if (remail.isEmpty() || pass.isEmpty()){
             Toast.makeText(this,"Please complete all forms", Toast.LENGTH_SHORT).show();
             return false;
         }
