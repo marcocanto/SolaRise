@@ -46,7 +46,8 @@
         app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:startIconDrawable="@drawable/ic_person">
+        app:startIconDrawable="@drawable/ic_person"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etUserName"
@@ -57,7 +58,8 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="4dp"
             android:inputType="text"
-            android:maxLines="1"/>
+            android:maxLines="1"
+            />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout

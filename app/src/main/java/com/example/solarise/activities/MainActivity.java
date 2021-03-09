@@ -7,6 +7,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Build;
@@ -47,7 +48,6 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -56,7 +56,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class MainActivity extends AppCompatActivity {
@@ -76,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton fab;
     private FloatingActionButton fab_coffee;
     private FloatingActionButton fab_sleep;
+    private FloatingActionButton fab_calc;
     private Animator rotate_open;
     private Animator rotate_close;
     private boolean fab_clicked;
@@ -89,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
         fab = findViewById(R.id.add_btn);
         fab_coffee = findViewById(R.id.coffee_btn);
         fab_sleep = findViewById(R.id.sleep_btn);
+        fab_calc = findViewById(R.id.calculator_btn);
         fab_clicked = false;
 
         appToolbar = findViewById(R.id.topAppBar);
@@ -179,6 +180,7 @@ public class MainActivity extends AppCompatActivity {
         chart.animateX(1500);
 //        chart.setBackgroundColor(Color.parseColor("#1f119c"));
 
+
         final String[] dates = getDates(u);
 
         ValueFormatter formatter = new ValueFormatter() {
@@ -210,11 +212,14 @@ public class MainActivity extends AppCompatActivity {
         dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
         dataSet.setValueTextSize(12);
         dataSet.setDrawFilled(true);
+        dataSet.setColor(Color.parseColor("#607D8B"));
+        dataSet.setCircleColor(Color.parseColor("#607D8B"));
 //        dataSet.setFillDrawable(gradientDrawable);
         Drawable drawable = ContextCompat.getDrawable(this, R.drawable.fade_red);
         dataSet.setFillDrawable(drawable);
 
         LineData lineData = new LineData(dataSet);
+        lineData.setValueTextColor(Color.parseColor("#607D8B"));
         chart.setData(lineData);
         chart.invalidate();
 
@@ -306,9 +311,11 @@ public class MainActivity extends AppCompatActivity {
         if (!clicked) {
             fab_sleep.show();
             fab_coffee.show();
+            fab_calc.show();
         } else {
             fab_coffee.hide();
             fab_sleep.hide();
+            fab_calc.hide();
         }
     }
 

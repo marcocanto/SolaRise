@@ -57,6 +57,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void authentication(String user, String pass){
+        if (user.isEmpty() || pass.isEmpty()) {
+            Toast.makeText(this, "Please provide login information", Toast.LENGTH_SHORT).show();
+            return;
+        }
         progress.setMessage("Verifying Credentials");
         firebaseAuth.signInWithEmailAndPassword(user, pass).addOnCompleteListener(task -> {
             if(task.isSuccessful()){

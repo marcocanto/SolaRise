@@ -313,21 +313,26 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/add_btn"
+            android:background="@color/primaryColor"
+            android:backgroundTint="@color/primaryColor"
+            android:tint="@color/primaryColor"
+            app:borderWidth="0dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="24dp"
-            android:backgroundTint="@color/design_default_color_primary"
-            android:clickable="true"
-            android:focusable="true"
             android:layout_gravity="bottom|end"
-            android:tint="@android:color/white"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:clickable="true"
             android:elevation="10dp"
+            android:focusable="true"
+            android:forceDarkAllowed="false"
             app:elevation="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -338,7 +343,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="8dp"
             android:clickable="true"
             android:elevation="10dp"
             android:focusable="true"
@@ -354,17 +359,35 @@
             android:id="@+id/coffee_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:clickable="true"
-            android:focusable="true"
             android:layout_gravity="bottom|end"
-            android:visibility="invisible"
+            android:layout_marginBottom="4dp"
+            android:clickable="true"
             android:elevation="10dp"
+            android:focusable="true"
+            android:visibility="invisible"
             app:elevation="10dp"
             app:fabSize="mini"
             app:layout_constraintBottom_toTopOf="@+id/sleep_btn"
             app:layout_constraintEnd_toEndOf="@+id/sleep_btn"
+            app:layout_constraintStart_toStartOf="@+id/sleep_btn"
             app:srcCompat="@drawable/ic_coffee" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/calculator_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="4dp"
+            android:clickable="true"
+            android:elevation="10dp"
+            android:focusable="true"
+            android:visibility="invisible"
+            app:elevation="10dp"
+            app:fabSize="mini"
+            app:layout_constraintBottom_toTopOf="@+id/coffee_btn"
+            app:layout_constraintEnd_toEndOf="@+id/coffee_btn"
+            app:layout_constraintStart_toStartOf="@+id/coffee_btn"
+            app:srcCompat="@drawable/ic_calc" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
