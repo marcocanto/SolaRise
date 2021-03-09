@@ -39,6 +39,13 @@
     <string name="display_coffee">Avg. Coffee Cups</string>
     <string name="avg_cof">Avg Coffee Cups:</string>
     <string name="sleep_start_time">%1$02d:%2$02d</string>
+    <string name="sleep_calculator">Sleep Calculator</string>
+    <string name="i_wish_to_sleep">I Wish To Sleep At</string>
+    <string name="i_wish_to_wake">I Wish To Wake Up At</string>
+    <string name="calculate">Calculate Times</string>
+    <string name="enter_time">Enter Time (e.g. 9:30)</string>
+    <string name="calc_age">Enter_Age</string>
+    <string name="calc_age2">Enter Age</string>
     <string name="recommendations">Recommendations</string>
     <string name="dashboard">Dashboard</string>
 </resources>

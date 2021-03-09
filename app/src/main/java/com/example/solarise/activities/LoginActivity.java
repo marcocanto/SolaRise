@@ -66,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
             if(task.isSuccessful()){
                 progress.dismiss();
                 Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(LoginActivity.this, EditProfile.class));
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 finish();
             }
             else{

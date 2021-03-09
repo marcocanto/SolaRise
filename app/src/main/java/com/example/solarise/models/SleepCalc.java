@@ -1,6 +1,9 @@
 package com.example.solarise.models;
 
+import android.widget.Button;
+
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class SleepCalc {
     private String desired_wake;
@@ -9,6 +12,7 @@ public class SleepCalc {
     private ArrayList<String> wakeup_times;
     private ArrayList<String> sleep_times;
     private int rem = 90;
+    private Button lol;
 
     public SleepCalc(){
 
@@ -22,6 +26,35 @@ public class SleepCalc {
             this.time_to_sleep = 60;
         }
 
+
+    }
+
+    public ArrayList<String> calc_times(String sleep_time, boolean sleep_pref, int age){
+        if (sleep_pref){
+            if (age < 18){
+                sleep_times = sleep_now(sleep_time);
+                Collections.swap(sleep_times,0,1);
+                return sleep_times;
+
+            }
+            else{
+                sleep_times = sleep_now(sleep_time);
+                return sleep_times;
+            }
+        }
+        else{
+            if (age < 18){
+                sleep_times = wake_now(sleep_time);
+                Collections.swap(sleep_times,0,1);
+                return sleep_times;
+            }
+            else{
+                sleep_times = sleep_now(sleep_time);
+
+                return sleep_times;
+            }
+
+        }
     }
 
     private ArrayList<String> sleep_now (String sleep_time){
@@ -38,13 +71,17 @@ public class SleepCalc {
         }
 
 
-        if (cycle1M > 60){
+        if (cycle1M >= 60){
             cycle1M = cycle1M - 60;
             cycle1H += 1;
         }
 
         if (cycle1M == 0) {
             wakeup_times.add(String.valueOf(cycle1H) + ":" + String.valueOf(cycle1M) + "0");
+
+        }
+        else if(cycle1M < 10){
+            wakeup_times.add(String.valueOf(cycle1H) + ":0" + String.valueOf(cycle1M));
 
         }
         else {
@@ -62,13 +99,18 @@ public class SleepCalc {
         }
 
 
-        if (cycle2M > 60){
+        if (cycle2M >= 60){
             cycle2M = cycle2M - 60;
             cycle2H += 1;
         }
 
         if (cycle2M == 0) {
             wakeup_times.add(String.valueOf(cycle2H) + ":" + String.valueOf(cycle2M) + "0");
+
+
+        }
+        else if(cycle2M < 10){
+            wakeup_times.add(String.valueOf(cycle2H) + ":0" + String.valueOf(cycle2M));
 
         }
         else {
@@ -84,13 +126,17 @@ public class SleepCalc {
             cycle3H = cycle3H - 12;
         }
 
-        if (cycle3M > 60){
+        if (cycle3M >= 60){
             cycle3M = cycle3M - 60;
             cycle3H += 1;
         }
 
         if (cycle3M == 0) {
             wakeup_times.add(String.valueOf(cycle3H) + ":" + String.valueOf(cycle3M) + "0");
+
+        }
+        else if(cycle3M < 10){
+            wakeup_times.add(String.valueOf(cycle3H) + ":0" + String.valueOf(cycle3M));
 
         }
         else {
@@ -103,19 +149,24 @@ public class SleepCalc {
             cycle4H = cycle4H - 12;
         }
 
-        if (cycle4M > 60){
-            cycle4M = cycle3M - 60;
+        if (cycle4M >= 60){
+            cycle4M = cycle4M - 60;
             cycle4H += 1;
         }
 
-        if (cycle2M == 0) {
+        if (cycle4M == 0) {
             wakeup_times.add(String.valueOf(cycle4H) + ":" + String.valueOf(cycle4M) + "0");
+
+        }
+        else if(cycle4M < 10){
+            wakeup_times.add(String.valueOf(cycle4H) + ":0" + String.valueOf(cycle4M));
 
         }
         else {
             wakeup_times.add(String.valueOf(cycle4H) + ":" + String.valueOf(cycle4M));
         }
-
+        Collections.reverse(wakeup_times);
+        Collections.swap(wakeup_times, 0, 1);
         return wakeup_times;
     }
 
@@ -132,13 +183,17 @@ public class SleepCalc {
             cycle4H = cycle4H - 12;
         }
 
-        if (cycle4M > 60){
+        if (cycle4M >= 60){
             cycle4M = cycle4M - 60;
             cycle4H += 1;
         }
 
         if (cycle4M == 0) {
             wakeup_times.add(String.valueOf(cycle4H) + ":" + String.valueOf(cycle4M) + "0");
+
+        }
+        else if(cycle4M < 10){
+            wakeup_times.add(String.valueOf(cycle4H) + ":0" + String.valueOf(cycle4M));
 
         }
         else {
@@ -153,13 +208,17 @@ public class SleepCalc {
         }
 
 
-        if (cycle1M > 60){
+        if (cycle1M >= 60){
             cycle1M = cycle1M - 60;
             cycle1H += 1;
         }
 
         if (cycle1M == 0) {
             wakeup_times.add(String.valueOf(cycle1H) + ":" + String.valueOf(cycle1M) + "0");
+
+        }
+        else if(cycle1M < 10){
+            wakeup_times.add(String.valueOf(cycle1H) + ":0" + String.valueOf(cycle1M));
 
         }
         else {
@@ -177,13 +236,17 @@ public class SleepCalc {
         }
 
 
-        if (cycle2M > 60){
+        if (cycle2M >= 60){
             cycle2M = cycle2M - 60;
             cycle2H += 1;
         }
 
         if (cycle2M == 0) {
             wakeup_times.add(String.valueOf(cycle2H) + ":" + String.valueOf(cycle2M) + "0");
+
+        }
+        else if(cycle2M < 10){
+            wakeup_times.add(String.valueOf(cycle2H) + ":0" + String.valueOf(cycle2M));
 
         }
         else {
@@ -199,13 +262,17 @@ public class SleepCalc {
             cycle3H = cycle3H - 12;
         }
 
-        if (cycle3M > 60){
+        if (cycle3M >= 60){
             cycle3M = cycle3M - 60;
             cycle3H += 1;
         }
 
         if (cycle3M == 0) {
             wakeup_times.add(String.valueOf(cycle3H) + ":" + String.valueOf(cycle3M) + "0");
+
+        }
+        else if(cycle3M < 10){
+            wakeup_times.add(String.valueOf(cycle3H) + ":0" + String.valueOf(cycle3M));
 
         }
         else {
