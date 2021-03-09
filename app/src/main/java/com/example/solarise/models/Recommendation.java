@@ -23,24 +23,27 @@ public class Recommendation {
         this.latest_sleep = latest_sleep;
     }
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public ArrayList<ArrayList<String>> getSleepRecommendations() {
+    public ArrayList<String> getSleepRecommendations() {
 
-        ArrayList<ArrayList<String>> output = new ArrayList<ArrayList<String>>();
+        ArrayList<String> output = new ArrayList<String>();
         String pattern = "hh:mm a";
+        String s1, s2;
 
         for(int i = 0; i <= 30; i += 15) {
 
             ArrayList<String> baseline1 = new ArrayList<String>();
             LocalTime e1 = earliest_sleep.minusMinutes(i);
-            baseline1.add(e1.format(DateTimeFormatter.ofPattern(pattern)));
-            baseline1.add(e1.plusMinutes(sleep_length).format(DateTimeFormatter.ofPattern(pattern)));
-            output.add(baseline1);
+//            baseline1.add(e1.format(DateTimeFormatter.ofPattern(pattern)));
+//            baseline1.add(e1.plusMinutes(sleep_length).format(DateTimeFormatter.ofPattern(pattern)));
+            s1 = e1.format(DateTimeFormatter.ofPattern(pattern)) + " - " + e1.plusMinutes(sleep_length).format(DateTimeFormatter.ofPattern(pattern));
+            output.add(s1);
 
             ArrayList<String> baseline2 = new ArrayList<String>();
             LocalTime l1 = latest_sleep.plusMinutes(i);
-            baseline2.add(l1.format(DateTimeFormatter.ofPattern(pattern)));
-            baseline2.add(l1.plusMinutes(sleep_length).format(DateTimeFormatter.ofPattern(pattern)));
-            output.add(baseline2);
+//            baseline2.add(l1.format(DateTimeFormatter.ofPattern(pattern)));
+//            baseline2.add(l1.plusMinutes(sleep_length).format(DateTimeFormatter.ofPattern(pattern)));
+            s2 = l1.format(DateTimeFormatter.ofPattern(pattern)) + " - " +  l1.plusMinutes(sleep_length).format(DateTimeFormatter.ofPattern(pattern));
+            output.add(s2);
 
         }
 

@@ -36,7 +36,8 @@ class NotificationHelper {
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mContext, NOTIFICATION_CHANNEL_ID);
         mBuilder.setSmallIcon(R.mipmap.ic_launcher);
         mBuilder.setContentTitle("You have one hour before sunset!")
-                .setContentText("This is your last chance to get sunlight! Adequate sunlight every day helps you sleep better.")
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText("This is your last chance to get sunlight! Adequate sunlight every day helps you sleep better."))
                 .setAutoCancel(false)
                 .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
                 .setContentIntent(resultPendingIntent);
