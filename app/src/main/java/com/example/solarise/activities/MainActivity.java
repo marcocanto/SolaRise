@@ -29,6 +29,8 @@ import com.example.solarise.models.CoffeeReceiver;
 import com.example.solarise.models.Day;
 import com.example.solarise.models.Daytime;
 import com.example.solarise.models.NotificationReceiver;
+import com.example.solarise.models.Recommendation;
+import com.example.solarise.models.Recommender;
 import com.example.solarise.models.User;
 import com.example.solarise.network.OpenWeatherClient;
 import com.github.mikephil.charting.charts.LineChart;
@@ -46,6 +48,7 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textview.MaterialTextView;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -79,6 +82,8 @@ public class MainActivity extends AppCompatActivity {
     private Animator rotate_open;
     private Animator rotate_close;
     private boolean fab_clicked;
+
+    private MaterialTextView rec1, rec2, rec3, rec4, rec5, rec6;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -217,6 +222,25 @@ public class MainActivity extends AppCompatActivity {
         LineData lineData = new LineData(dataSet);
         chart.setData(lineData);
         chart.invalidate();
+
+
+        rec1 = (MaterialTextView) findViewById(R.id.Recommendation_1);
+        rec2 = (MaterialTextView) findViewById(R.id.Recommendation_2);
+        rec3 = (MaterialTextView) findViewById(R.id.Recommendation_3);
+        rec4 = (MaterialTextView) findViewById(R.id.Recommendation_4);
+        rec5 = (MaterialTextView) findViewById(R.id.Recommendation_5);
+        rec6 = (MaterialTextView) findViewById(R.id.Recommendation_6);
+
+        Recommender r = new Recommender();
+        Recommendation recommendation = r.giveRecommendation(u, 3);
+        ArrayList<String> sleep_recs = recommendation.getSleepRecommendations();
+
+        rec1.setText(sleep_recs.get(0));
+        rec2.setText(sleep_recs.get(1));
+        rec3.setText(sleep_recs.get(2));
+        rec4.setText(sleep_recs.get(3));
+        rec5.setText(sleep_recs.get(4));
+        rec6.setText(sleep_recs.get(5));
 
     }
 
