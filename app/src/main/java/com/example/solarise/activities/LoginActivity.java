@@ -4,13 +4,14 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.solarise.R;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -18,9 +19,10 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private EditText Username;
-    private EditText Password;
-    private Button Login, Register;
+    private TextInputEditText etEmail, etPassword;
+    private MaterialButton btnLogin;
+    private MaterialTextView tvSignup;
+
     private ProgressDialog progress;
     private FirebaseAuth firebaseAuth;
 
@@ -32,10 +34,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Username = findViewById(R.id.etUserEmail);
-        Password = findViewById(R.id.etUserPass);
-        Login = findViewById(R.id.btnLogin);
-        Register = findViewById(R.id.btnSignUp);
+        etEmail = findViewById(R.id.etUserEmail);
+        etPassword = findViewById(R.id.etPassword);
+        btnLogin = findViewById(R.id.btnSignUp);
+        tvSignup = findViewById(R.id.tvLogin);
         progress = new ProgressDialog(this);
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -47,11 +49,11 @@ public class LoginActivity extends AppCompatActivity {
             finish();
         }
 
-        Login.setOnClickListener((View v) -> {
-            authentication(Username.getText().toString(), Password.getText().toString());
+        btnLogin.setOnClickListener((View v) -> {
+            authentication(etEmail.getText().toString(), etPassword.getText().toString());
         });
 
-        Register.setOnClickListener((View v) -> {
+        tvSignup.setOnClickListener((View v) -> {
             startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
         });
     }
@@ -75,4 +77,5 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     }
+
 }

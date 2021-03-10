@@ -3,21 +3,21 @@ package com.example.solarise.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.solarise.R;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private EditText email, passWord;
-    private Button registerButton;
-    private TextView Login;
+    private TextInputEditText etUserEmail, etPassword;
+    private MaterialButton btnSignup;
+    private TextView tvLogin;
     private FirebaseAuth firebaseAuth;
 //    private FirebaseDatabase firebaseDatabase; //Root Node
 //    private DatabaseReference firebaseReference; //Reference to sub root levels
@@ -25,16 +25,16 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_signup);
         initializeViews();
 
         firebaseAuth = FirebaseAuth.getInstance(); //Creates firebase auth object
 
-        registerButton.setOnClickListener(v -> {
+        btnSignup.setOnClickListener(v -> {
             if (completed()){
                 // upload to database
-                String user_email = email.getText().toString();
-                String user_pass = passWord.getText().toString();
+                String user_email = etUserEmail.getText().toString();
+                String user_pass = etPassword.getText().toString();
 
                 firebaseAuth.createUserWithEmailAndPassword(user_email, user_pass).addOnCompleteListener(task -> {
                     if(task.isSuccessful()) {
@@ -55,20 +55,23 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        Login.setOnClickListener(v -> startActivity(new Intent(RegisterActivity.this, LoginActivity.class)));
+        tvLogin.setOnClickListener(v -> {
+//                    startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                    finish();
+                });
     }
 
     private void initializeViews(){
-        email = findViewById(R.id.etRegisterEmail);
-        passWord = findViewById(R.id.etRegisterPassword);
-        registerButton = findViewById(R.id.btnRegister);
-        Login = findViewById(R.id.tvReturnLogin);
+        etUserEmail = findViewById(R.id.etUserEmail);
+        etPassword = findViewById(R.id.etPassword);
+        btnSignup = findViewById(R.id.btnSignUp);
+        tvLogin = findViewById(R.id.tvLogin);
 
     }
 
     private boolean completed(){
-        String pass = passWord.getText().toString();
-        String remail = email.getText().toString();
+        String pass = etPassword.getText().toString();
+        String remail = etUserEmail.getText().toString();
         if (remail.isEmpty() || pass.isEmpty()){
             Toast.makeText(this,"Please complete all forms", Toast.LENGTH_SHORT).show();
             return false;
@@ -76,6 +79,5 @@ public class RegisterActivity extends AppCompatActivity {
         else{
             return true;
         }
-
     }
 }

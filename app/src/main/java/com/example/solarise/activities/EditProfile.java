@@ -59,8 +59,11 @@ public class EditProfile extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.logout:
                     FirebaseAuth.getInstance().signOut();
-                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                    finish();
+                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                            Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                            Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
                 case R.id.dashboard:
                     finish();
             }
