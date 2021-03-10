@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -48,6 +50,22 @@ public class CaffeineEntryDialogFragment extends DialogFragment {
         // Fetch arguments from bundle and set title
         String title = getArguments().getString("title", "Enter Name");
         getDialog().setTitle(title);
+
+
+        btnClose.setOnClickListener(v -> {
+            dismiss();
+        });
+
+
+        btnSubmit.setOnClickListener(v -> {
+            Toast.makeText(this.getContext(), "Coffee Intake Recorded", Toast.LENGTH_SHORT).show();
+            dismiss();
+        });
+
+        etCaffeine.requestFocus();
+        if(etCaffeine.requestFocus()) {
+            getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
 
     }
 }

@@ -49,7 +49,7 @@ public class SleepCalc {
                 return sleep_times;
             }
             else{
-                sleep_times = sleep_now(sleep_time);
+                sleep_times = wake_now(sleep_time);
 
                 return sleep_times;
             }

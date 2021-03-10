@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.solarise.R;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.timepicker.MaterialTimePicker;
 
 public class SleepEntryDialogFragment extends DialogFragment {
@@ -21,6 +22,7 @@ public class SleepEntryDialogFragment extends DialogFragment {
     private Button btnWakeUp;
     private TextView tvSleepStart;
     private TextView tvWakeUp;
+    private MaterialButton btnClose, btnSubmit;
 
     private MaterialTimePicker picker1;
     private MaterialTimePicker picker2;
@@ -53,6 +55,9 @@ public class SleepEntryDialogFragment extends DialogFragment {
         btnWakeUp = view.findViewById(R.id.btnWakeUp);
         tvSleepStart = view.findViewById(R.id.tvSleepStart);
         tvWakeUp = view.findViewById(R.id.tvWakeUp);
+        btnClose = view.findViewById(R.id.btnClose);
+        btnSubmit = view.findViewById(R.id.btnSubmit);
+
         // Fetch arguments from bundle and set title
         String title = getArguments().getString("title", "Enter Name");
         getDialog().setTitle(title);
@@ -74,6 +79,15 @@ public class SleepEntryDialogFragment extends DialogFragment {
                 tvWakeUp.setText(getContext().getResources().getString(R.string.sleep_start_time, picker2.getHour(), picker2.getMinute()));
             });
             picker2.show(requireFragmentManager(), "SleepEntryDialogFragment");
+        });
+
+        btnClose.setOnClickListener(v -> {
+            dismiss();
+        });
+
+        btnSubmit.setOnClickListener(v -> {
+            Toast.makeText(this.getContext(), "Sleep Session Recorded", Toast.LENGTH_SHORT).show();
+            dismiss();
         });
     }
 

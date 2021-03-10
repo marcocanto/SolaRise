@@ -116,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(v -> onAddButtonClicked());
         fab_sleep.setOnClickListener(v -> showSleepDialog());
         fab_coffee.setOnClickListener(v -> showCaffeineDialog());
+        fab_calc.setOnClickListener(v -> showCalcActivity());
 
         // set up the network client to send API requests
         client = new OpenWeatherClient();
@@ -354,6 +355,11 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fm = getSupportFragmentManager();
         SleepEntryDialogFragment sleepEntryDialogFragment = SleepEntryDialogFragment.newInstance("Some Title");
         sleepEntryDialogFragment.show(fm, "fragment_edit_name");
+    }
+
+    private void showCalcActivity() {
+       Intent intent = new Intent(MainActivity.this, CalculatorActivity.class);
+       startActivity(intent);
     }
 
     private void showCaffeineDialog() {
