@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
     private Animator rotate_close;
     private boolean fab_clicked;
 
-    private MaterialTextView rec1, rec2, rec3, rec4, rec5, rec6;
+    private MaterialTextView rec1, rec2, rec3, rec4, rec5, rec6, rec7, rec8;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -162,11 +162,11 @@ public class MainActivity extends AppCompatActivity {
 
         User u = new User("Rad", 21, true, 3, "test_user");
 
-        Day d5 = new Day("2021-02-25T13:14:15", "2021-02-21T20:14:15", 5);
-        Day d4 = new Day("2021-02-25T14:14:15", "2021-02-22T21:30:15", 4.5);
-        Day d3 = new Day("2021-02-25T15:14:15", "2021-02-23T05:14:15", 4);
-        Day d2 = new Day("2021-02-25T13:14:15.038415", "2021-02-24T13:14:15.038415", 3);
-        Day d1 = new Day("2021-02-25T13:14:15.038415", "2021-02-25T13:14:15.038415", 3.5);
+        Day d5 = new Day("2021-03-06T22:15:15", "2021-03-07T06:15:15", 5);
+        Day d4 = new Day("2021-03-07T23:15:15", "2021-03-08T07:15:15", 4.5);
+        Day d3 = new Day("2021-03-08T22:45:15", "2021-03-09T06:45:15", 4);
+        Day d2 = new Day("2021-03-09T13:15:15", "2021-03-10T13:15:15", 3);
+        Day d1 = new Day("2021-03-10T13:15:15", "2021-03-11T13:15:15", 3.5);
 
         u.addDay(d5);
         u.addDay(d4);
@@ -199,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
 
         XAxis xAxis = chart.getXAxis();
         xAxis.setAxisMaximum(u.getDays().size());
-        xAxis.setLabelCount(u.getDays().size() + 1, true);
+        xAxis.setLabelCount(u.getDays().size(), true);
         xAxis.setValueFormatter(formatter);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
 //        xAxis.setTextSize(13);
@@ -236,17 +236,22 @@ public class MainActivity extends AppCompatActivity {
         rec4 = (MaterialTextView) findViewById(R.id.Recommendation_4);
         rec5 = (MaterialTextView) findViewById(R.id.Recommendation_5);
         rec6 = (MaterialTextView) findViewById(R.id.Recommendation_6);
+        rec7 = (MaterialTextView) findViewById(R.id.Recommendation_7);
+        rec8 = (MaterialTextView) findViewById(R.id.Recommendation_8);
 
         Recommender r = new Recommender();
         Recommendation recommendation = r.giveRecommendation(u, 3);
         ArrayList<String> sleep_recs = recommendation.getSleepRecommendations();
 
-        rec1.setText(sleep_recs.get(0));
-        rec2.setText(sleep_recs.get(1));
-        rec3.setText(sleep_recs.get(2));
-        rec4.setText(sleep_recs.get(3));
-        rec5.setText(sleep_recs.get(4));
-        rec6.setText(sleep_recs.get(5));
+        rec1.setText("Sleep Recommendation : " + sleep_recs.get(4));
+        rec2.setText("Sleep Recommendation : " + sleep_recs.get(2));
+        rec3.setText("Sleep Recommendation : " + sleep_recs.get(0));
+        rec4.setText("Sleep Recommendation : " + sleep_recs.get(1));
+        rec5.setText("Sleep Recommendation : " + sleep_recs.get(3));
+        rec6.setText("Sleep Recommendation : " + sleep_recs.get(5));
+
+        rec7.setText("Max Cups of Coffee Remaining Today: 2");
+        rec8.setText("Recommended Hours of Sunlight Remaining: 1.5");
 
     }
 
