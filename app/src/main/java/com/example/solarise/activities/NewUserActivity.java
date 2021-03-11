@@ -1,4 +1,422 @@
 package com.example.solarise.activities;
 
-public class NewUserActivity {
+import android.Manifest;
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.location.Location;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Looper;
+import android.util.Log;
+import android.widget.TextView;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
+
+import com.example.solarise.R;
+import com.example.solarise.fragments.CaffeineEntryDialogFragment;
+import com.example.solarise.fragments.SleepEntryDialogFragment;
+import com.example.solarise.models.CoffeeReceiver;
+import com.example.solarise.models.Day;
+import com.example.solarise.models.Daytime;
+import com.example.solarise.models.NotificationReceiver;
+import com.example.solarise.models.Recommendation;
+import com.example.solarise.models.Recommender;
+import com.example.solarise.models.User;
+import com.example.solarise.network.OpenWeatherClient;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textview.MaterialTextView;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+@RequiresApi(api = Build.VERSION_CODES.O)
+public class NewUserActivity extends AppCompatActivity {
+
+    private static final String TAG = "NewUserActivity";
+
+    private FusedLocationProviderClient fusedLocationClient;
+    private OpenWeatherClient client;
+    private static Daytime currentDaytime;
+    private static Location lastLocation;
+
+    private LocationRequest locationRequest;
+    private LocationCallback locationCallback;
+
+    private MaterialToolbar appToolbar;
+
+    private FloatingActionButton fab;
+    private FloatingActionButton fab_coffee;
+    private FloatingActionButton fab_sleep;
+    private FloatingActionButton fab_calc;
+    private Animator rotate_open;
+    private Animator rotate_close;
+    private boolean fab_clicked;
+
+    private MaterialTextView rec1, rec2, rec3, rec4, rec5, rec6, rec7, rec8;
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_fab);
+
+        fab = findViewById(R.id.add_btn);
+        fab_coffee = findViewById(R.id.coffee_btn);
+        fab_sleep = findViewById(R.id.sleep_btn);
+        fab_calc = findViewById(R.id.calculator_btn);
+        fab_clicked = false;
+
+        appToolbar = findViewById(R.id.topAppBar);
+
+        rotate_open = AnimatorInflater.loadAnimator(this, R.animator.rotate_open_anim);
+        rotate_close = AnimatorInflater.loadAnimator(this, R.animator.rotate_close_anim);
+        rotate_open.setTarget(fab);
+        rotate_close.setTarget(fab);
+
+        TextView tvSunriseTime = findViewById(R.id.tvSunriseTime);
+        TextView tvSunsetTime = findViewById(R.id.tvSunsetTime);
+
+        appToolbar.setOnMenuItemClickListener(item -> {
+            Intent intent = new Intent(getApplicationContext(), EditProfile.class);
+            startActivity(intent);
+            return true;
+        });
+
+        fab.setOnClickListener(v -> onAddButtonClicked());
+        fab_sleep.setOnClickListener(v -> showSleepDialog());
+        fab_coffee.setOnClickListener(v -> showCaffeineDialog());
+        fab_calc.setOnClickListener(v -> showCalcActivity());
+
+        // set up the network client to send API requests
+        client = new OpenWeatherClient();
+        // initialize the location client
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
+//        requestPermission.launch(Manifest.permission.ACCESS_COARSE_LOCATION);
+
+        locationRequest = LocationRequest.create();
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setInterval(20 * 1000);
+
+        locationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                Log.i(TAG, "on location result");
+                if (locationResult == null) {
+                    return;
+                }
+                for (Location location: locationResult.getLocations()) {
+                    if (location != null) {
+                        getCurrentLocation(fusedLocationClient);
+                        fusedLocationClient.removeLocationUpdates(locationCallback);
+                    }
+                }
+            }
+        };
+
+        currentDaytime = new Daytime();
+        currentDaytime.setListener(json -> {
+            currentDaytime.setDaytimeFromJSON(json);
+            tvSunriseTime.setText(currentDaytime.getSunrise());
+            tvSunsetTime.setText(currentDaytime.getSunset());
+            sunlightAlarm(tvSunsetTime.getText().toString());
+            coffeeAlarm(tvSunsetTime.getText().toString());
+        });
+
+        getCurrentLocation(fusedLocationClient);
+        tvSunriseTime.setText(currentDaytime.getSunrise());
+        tvSunsetTime.setText(currentDaytime.getSunset());
+
+
+
+        User u = new User("Rad", 21, true, 3, "test_user");
+
+        Day d5 = new Day("2021-03-06T22:15:15", "2021-03-07T06:15:15", 5);
+        Day d4 = new Day("2021-03-07T23:15:15", "2021-03-08T07:15:15", 4.5);
+        Day d3 = new Day("2021-03-08T22:45:15", "2021-03-09T06:45:15", 4);
+        Day d2 = new Day("2021-03-09T13:15:15", "2021-03-10T13:15:15", 3);
+        Day d1 = new Day("2021-03-10T13:15:15", "2021-03-11T13:15:15", 3.5);
+
+        u.addDay(d5);
+        u.addDay(d4);
+        u.addDay(d3);
+        u.addDay(d2);
+        u.addDay(d1);
+
+        LineChart chart = (LineChart) findViewById(R.id.chart);
+        chart.setDrawGridBackground(false);
+        chart.setDrawBorders(false);
+        chart.getDescription().setEnabled(false);
+
+//        chart.getAxisLeft().setDrawGridLines(false);
+        chart.getXAxis().setDrawGridLines(false);
+//        chart.getAxisRight().setDrawGridLines(false);
+
+        chart.animateX(1500);
+//        chart.setBackgroundColor(Color.parseColor("#1f119c"));
+
+
+        final String[] dates = getDates(u);
+
+        ValueFormatter formatter = new ValueFormatter() {
+
+            @Override
+            public String getAxisLabel(float value, AxisBase axis) {
+                return dates[(int) value];
+            }
+        };
+
+        XAxis xAxis = chart.getXAxis();
+        xAxis.setAxisMaximum(u.getDays().size());
+        xAxis.setLabelCount(u.getDays().size(), true);
+        xAxis.setValueFormatter(formatter);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+//        xAxis.setTextSize(13);
+
+        YAxis leftAxis = chart.getAxisLeft();
+        leftAxis.setAxisMaximum(6);
+        leftAxis.setAxisMinimum(0);
+        leftAxis.setLabelCount(7, true);
+
+        YAxis rightAxis = chart.getAxisRight();
+        rightAxis.setEnabled(false);
+
+
+        List<Entry> entries = getUserDataForGraph(u);
+        LineDataSet dataSet = new LineDataSet(entries, "Rating");
+        dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        dataSet.setValueTextSize(12);
+        dataSet.setDrawFilled(true);
+        dataSet.setColor(Color.parseColor("#607D8B"));
+        dataSet.setCircleColor(Color.parseColor("#607D8B"));
+//        dataSet.setFillDrawable(gradientDrawable);
+        Drawable drawable = ContextCompat.getDrawable(this, R.drawable.fade_red);
+        dataSet.setFillDrawable(drawable);
+
+        LineData lineData = new LineData(dataSet);
+        lineData.setValueTextColor(Color.parseColor("#607D8B"));
+//        chart.setData(lineData);
+//        chart.invalidate();
+
+
+        rec1 = (MaterialTextView) findViewById(R.id.Recommendation_1);
+        rec2 = (MaterialTextView) findViewById(R.id.Recommendation_2);
+        rec3 = (MaterialTextView) findViewById(R.id.Recommendation_3);
+        rec4 = (MaterialTextView) findViewById(R.id.Recommendation_4);
+        rec5 = (MaterialTextView) findViewById(R.id.Recommendation_5);
+        rec6 = (MaterialTextView) findViewById(R.id.Recommendation_6);
+        rec7 = (MaterialTextView) findViewById(R.id.Recommendation_7);
+        rec8 = (MaterialTextView) findViewById(R.id.Recommendation_8);
+
+        Recommender r = new Recommender();
+        Recommendation recommendation = r.giveRecommendation(u, 3);
+        ArrayList<String> sleep_recs = recommendation.getSleepRecommendations();
+
+        rec1.setText("Sleep Recommendation : " + "8:00PM - 4:30AM");
+        rec2.setText("Sleep Recommendation : " + "8:30PM - 5:00AM");
+        rec3.setText("Sleep Recommendation : " + "9:00PM - 5:30AM");
+        rec4.setText("Sleep Recommendation : " + "9:30PM - 6:00AM");
+        rec5.setText("Max Cups of Coffee Remaining Today: 2");
+        rec6.setText("Recommended Hours of Sunlight Remaining: 2");
+        rec7.setText("Not sure when to sleep?");
+        rec8.setText("Try our sleep calculator using the button -->");
+
+    }
+
+    // returns pair of lat,lon
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void getCurrentLocation(FusedLocationProviderClient fusedLocationClient) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermission.launch(Manifest.permission.ACCESS_COARSE_LOCATION);
+        } else {
+            Log.i(TAG, "getting last location");
+            fusedLocationClient.getLastLocation()
+                    .addOnSuccessListener(this, location -> {
+                        // check if location was received
+                        if (location != null) {
+                            Log.i(TAG, "received location data: " + location.toString());
+                            setLocation(location);
+                            setWeather(client, lastLocation);
+                        } else {
+                            Log.i(TAG, "error receiving location");
+                            fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper());
+                        }
+                    });
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void setWeather(OpenWeatherClient client, Location location) {
+        currentDaytime.loadDaytimeAsync(client, location);
+    }
+
+    public void setLocation(Location location) {
+        lastLocation = location;
+    }
+
+    public List<Entry> getUserDataForGraph(User u) {
+
+        List<Entry> entries = new ArrayList<>();
+//        entries.add(new Entry(0,0));
+
+        for(int i = 0; i < u.getDays().size(); ++i) {
+
+            entries.add(new Entry(i + 1, (float) u.getDays().get(i).getRating()));
+
+        }
+
+        return entries;
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public String[] getDates(User u) {
+
+        String[] dates = new String[u.getDays().size() + 1];
+        dates[0] = "";
+        int ct = 1;
+
+        for(Day d: u.getDays()) {
+
+            LocalDateTime l1 = LocalDateTime.parse(d.getWakeup_time());
+            LocalDate date = l1.toLocalDate();
+            String formattedDate = date.format(DateTimeFormatter.ofPattern("MM/dd"));
+//            String formattedDate = date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT));
+            dates[ct++] = formattedDate;
+        }
+
+        return dates;
+
+    }
+
+    private final ActivityResultLauncher<String> requestPermission = registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+        if (isGranted) {
+            Log.i(TAG, "permission granted");
+            getCurrentLocation(fusedLocationClient);
+        }
+        else {
+            Log.i(TAG, "permission denied");
+        }
+    });
+
+
+    private void onAddButtonClicked() {
+        setVisibility(fab_clicked);
+        setAnimation(fab_clicked);
+        fab_clicked = !fab_clicked;
+    }
+    private void setVisibility(boolean clicked) {
+        if (!clicked) {
+            fab_sleep.show();
+            fab_coffee.show();
+            fab_calc.show();
+        } else {
+            fab_coffee.hide();
+            fab_sleep.hide();
+            fab_calc.hide();
+        }
+    }
+
+    private void setAnimation(boolean clicked) {
+        if (!clicked) {
+            rotate_open.start();
+        } else {
+            rotate_close.start();
+        }
+    }
+    private void showSleepDialog() {
+        FragmentManager fm = getSupportFragmentManager();
+        SleepEntryDialogFragment sleepEntryDialogFragment = SleepEntryDialogFragment.newInstance("Some Title");
+        sleepEntryDialogFragment.show(fm, "fragment_edit_name");
+    }
+
+    private void showCalcActivity() {
+        Intent intent = new Intent(NewUserActivity.this, CalculatorActivity.class);
+        startActivity(intent);
+    }
+
+    private void showCaffeineDialog() {
+        FragmentManager fm = getSupportFragmentManager();
+        CaffeineEntryDialogFragment caffeineEntryDialogFragment = CaffeineEntryDialogFragment.newInstance("Some title");
+        caffeineEntryDialogFragment.show(fm, "fragment_alert");
+    }
+
+    public void sunlightAlarm(String sunset) {
+
+        LocalTime lt = LocalTime.parse(sunset, DateTimeFormatter.ofPattern("hh:mm a"));
+
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, lt.getHour() - 1);
+        calendar.set(Calendar.MINUTE, lt.getMinute());
+        calendar.set(Calendar.SECOND, 0);
+
+        if (calendar.getTime().compareTo(new Date()) < 0)
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+
+        Intent intent = new Intent(getApplicationContext(), NotificationReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+        if (alarmManager != null) {
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+
+        }
+
+    }
+
+    public void coffeeAlarm(String sunset) {
+
+        LocalTime lt = LocalTime.parse(sunset, DateTimeFormatter.ofPattern("hh:mm a"));
+
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, lt.getHour());
+        calendar.set(Calendar.MINUTE, lt.getMinute());
+        calendar.set(Calendar.SECOND, 0);
+
+        if (calendar.getTime().compareTo(new Date()) < 0)
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+
+        Intent intent = new Intent(getApplicationContext(), CoffeeReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+        if (alarmManager != null) {
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+
+        }
+
+    }
 }

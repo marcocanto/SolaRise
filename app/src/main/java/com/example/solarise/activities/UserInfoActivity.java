@@ -1,5 +1,6 @@
 package com.example.solarise.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -48,7 +49,7 @@ public class UserInfoActivity extends AppCompatActivity {
                 firebaseReference = firebaseDatabase.getReference("Users");
                 firebaseReference.child(userUid).setValue(user1);
 
-                startActivity(new Intent(this, MainActivity.class));
+                startActivity(new Intent(this, NewUserActivity.class));
                 finish();
             } else {
                 Toast.makeText(UserInfoActivity.this, "Please complete all forms", Toast.LENGTH_SHORT).show();
