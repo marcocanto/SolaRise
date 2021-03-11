@@ -19,6 +19,7 @@ public class UserInfoActivity extends AppCompatActivity {
     private Button btnEarlyBird, btnNightOwl;
     private FirebaseDatabase firebaseDatabase; //Root Node
     private DatabaseReference firebaseReference; //Reference to sub root levels
+    private MaterialButtonToggleGroup toggleGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +33,7 @@ public class UserInfoActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         String userUid = bundle.getString("uid");
 
-        MaterialButtonToggleGroup toggleGroup = findViewById(R.id.toggleGroup);
+        toggleGroup = findViewById(R.id.toggleGroup);
 
         Button btnSubmit = findViewById(R.id.btnSubmit);
 
