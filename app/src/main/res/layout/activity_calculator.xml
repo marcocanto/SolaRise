@@ -84,8 +84,8 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/displayCycles"
-        android:layout_width="283dp"
-        android:layout_height="62dp"
+        android:layout_width="312dp"
+        android:layout_height="130dp"
         android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

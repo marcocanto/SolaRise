@@ -61,8 +61,15 @@ public class CalculatorActivity extends AppCompatActivity implements TimePickerD
             Toast.makeText(this, Boolean.toString(sleeping_now), Toast.LENGTH_SHORT).show();
             SleepCalc calc = new SleepCalc();
             sleep_cycles = calc.calc_times(str_hour + ":" + str_min, sleeping_now, 18);
-            display_cycles.setText("Recommended Sleep Times in Preferred Order: " + sleep_cycles.get(0) + " (Best), " + sleep_cycles.get(1) + ", "
-            + sleep_cycles.get(2) + ", " + sleep_cycles.get(3));
+            if (sleeping_now){
+                display_cycles.setText("Recommended Wake Up Times in Order: " + "\n" + sleep_cycles.get(0) + " (Best) " + "\n" + sleep_cycles.get(1)  + "\n"
+                        + sleep_cycles.get(2)  + "\n" + sleep_cycles.get(3));
+            }
+            else{
+                display_cycles.setText("Recommended Sleep Times in Order: " + "\n" + sleep_cycles.get(0) + " (Best) " + "\n" + sleep_cycles.get(1)  + "\n"
+                        + sleep_cycles.get(2) + "\n" + sleep_cycles.get(3));
+            }
+
         });
     }
 
@@ -71,6 +78,7 @@ public class CalculatorActivity extends AppCompatActivity implements TimePickerD
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         if (hourOfDay > 12 ){
             hour = hourOfDay - 12;
+           // hour = hourOfDay;
             am = false;
         }
         else{
