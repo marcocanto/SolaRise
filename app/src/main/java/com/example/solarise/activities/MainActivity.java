@@ -373,6 +373,10 @@ public class MainActivity extends AppCompatActivity {
         caffeineEntryDialogFragment.show(fm, "fragment_alert");
     }
 
+
+    //    https://stackoverflow.com/questions/33055129/how-to-show-a-notification-everyday-at-a-certain-time-even-when-the-app-is-close
+//    The following code excerpts pertaining to push notifications (CoffeeHelper, CoffeeReceiver, NotificationHelper, NotificationReceiver)
+//    were largely inspired by the above stackoverflow post.
     public void sunlightAlarm(String sunset) {
 
         LocalTime lt = LocalTime.parse(sunset, DateTimeFormatter.ofPattern("hh:mm a"));

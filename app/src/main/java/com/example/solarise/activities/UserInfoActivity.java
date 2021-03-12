@@ -41,10 +41,11 @@ public class UserInfoActivity extends AppCompatActivity {
         btnSubmit.setOnClickListener(view -> {
             String userName = personName.getText().toString();
             String userAge = personAge.getText().toString();
+            String userCaff = personCaffeine.getText().toString();
             boolean userSleep;
             if (forms_completed(toggleGroup, userName, userAge)) {
                 userSleep = toggleGroup.getCheckedButtonId() == R.id.btnEarlyBird;
-                User user1 = new User(userName, Integer.parseInt(userAge), userSleep, 1, userUid);
+                User user1 = new User(userName, Integer.parseInt(userAge), userSleep, Integer.parseInt(userCaff), userUid);
                 firebaseDatabase = FirebaseDatabase.getInstance();
                 firebaseReference = firebaseDatabase.getReference("Users");
                 firebaseReference.child(userUid).setValue(user1);
