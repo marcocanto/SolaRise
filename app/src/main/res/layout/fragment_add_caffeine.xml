@@ -23,7 +23,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="Enter Cofee Intake"
+            android:text="Enter Coffee Intake"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

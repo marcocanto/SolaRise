@@ -107,7 +107,7 @@
             app:singleSelection="true">
 
             <Button
-                android:id="@+id/sleeping"
+                android:id="@+id/btnNightOwl"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -115,7 +115,7 @@
                 android:text="@string/night_owl" />
 
             <Button
-                android:id="@+id/waking"
+                android:id="@+id/btnEarlyBird"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

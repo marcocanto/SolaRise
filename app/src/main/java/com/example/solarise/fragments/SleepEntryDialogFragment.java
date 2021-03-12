@@ -65,7 +65,6 @@ public class SleepEntryDialogFragment extends DialogFragment {
         btnSleepStart.setOnClickListener(v -> {
             picker1 = createSleepPicker("Enter Fall Asleep Time");
             picker1.addOnPositiveButtonClickListener(x -> {
-                Toast.makeText(getContext(), Integer.toString(picker1.getHour()), Toast.LENGTH_SHORT).show();
                 tvSleepStart.setText(getContext().getResources().getString(R.string.sleep_start_time, picker1.getHour(), picker1.getMinute()));
             });
             picker1.show(requireFragmentManager(), "SleepEntryDialogFragment");
@@ -75,7 +74,6 @@ public class SleepEntryDialogFragment extends DialogFragment {
             picker2 = createSleepPicker("Enter Wake Up Time");
 
             picker2.addOnPositiveButtonClickListener(x -> {
-                Toast.makeText(getContext(), Integer.toString(picker2.getHour()), Toast.LENGTH_SHORT).show();
                 tvWakeUp.setText(getContext().getResources().getString(R.string.sleep_start_time, picker2.getHour(), picker2.getMinute()));
             });
             picker2.show(requireFragmentManager(), "SleepEntryDialogFragment");
